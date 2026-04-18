@@ -1,0 +1,26 @@
+{
+  "name": "marcosgz-projects",
+  "type": "module",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Documentation hub for marcosgz open-source projects — projects.marcosz.com.br",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.15.0",
+    "@astrojs/sitemap": "^3.6.0",
+    "astro-expressive-code": "^0.45.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
