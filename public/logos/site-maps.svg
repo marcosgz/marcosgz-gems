@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120" role="img" aria-label="SiteMaps">
+  <title>SiteMaps</title>
+  <!-- Branching tree — the sitemap as a graph -->
+  <g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round">
+    <!-- root -->
+    <line x1="30" y1="60" x2="58" y2="60"/>
+    <!-- fan out level 1 -->
+    <line x1="58" y1="60" x2="92" y2="30"/>
+    <line x1="58" y1="60" x2="92" y2="60"/>
+    <line x1="58" y1="60" x2="92" y2="90"/>
+    <!-- level 2 -->
+    <line x1="92" y1="30" x2="130" y2="18"/>
+    <line x1="92" y1="30" x2="130" y2="42"/>
+    <line x1="92" y1="60" x2="130" y2="60"/>
+    <line x1="92" y1="90" x2="130" y2="78"/>
+    <line x1="92" y1="90" x2="130" y2="102"/>
+    <!-- level 3 -->
+    <line x1="130" y1="18" x2="160" y2="14"/>
+    <line x1="130" y1="42" x2="160" y2="44"/>
+    <line x1="130" y1="60" x2="160" y2="60"/>
+    <line x1="130" y1="78" x2="160" y2="76"/>
+    <line x1="130" y1="102" x2="160" y2="106"/>
+  </g>
+  <!-- Node dots -->
+  <g fill="currentColor">
+    <circle cx="30" cy="60" r="4.2"/>
+    <circle cx="58" cy="60" r="3"/>
+    <circle cx="92" cy="30" r="2.6"/>
+    <circle cx="92" cy="60" r="2.6"/>
+    <circle cx="92" cy="90" r="2.6"/>
+    <circle cx="130" cy="18" r="2.2"/>
+    <circle cx="130" cy="42" r="2.2"/>
+    <circle cx="130" cy="60" r="2.2"/>
+    <circle cx="130" cy="78" r="2.2"/>
+    <circle cx="130" cy="102" r="2.2"/>
+    <circle cx="160" cy="14" r="1.8" opacity="0.75"/>
+    <circle cx="160" cy="44" r="1.8" opacity="0.75"/>
+    <circle cx="160" cy="60" r="1.8" opacity="0.75"/>
+    <circle cx="160" cy="76" r="1.8" opacity="0.75"/>
+    <circle cx="160" cy="106" r="1.8" opacity="0.75"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="188" y="54" font-family="'Fraunces', Georgia, serif" font-size="26" font-weight="500" letter-spacing="-0.01em" fill="currentColor">site</text>
+  <text x="188" y="82" font-family="'Fraunces', Georgia, serif" font-size="26" font-style="italic" font-weight="500" letter-spacing="-0.01em" fill="currentColor">maps</text>
+  <line x1="188" y1="62" x2="250" y2="62" stroke="currentColor" stroke-width="0.6" opacity="0.4"/>
+</svg>

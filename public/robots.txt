@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /.well-known/
+
+Sitemap: https://projects.marcosz.com.br/sitemap-index.xml

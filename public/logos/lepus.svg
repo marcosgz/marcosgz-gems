@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120" role="img" aria-label="Lepus">
+  <title>Lepus</title>
+  <defs>
+    <linearGradient id="lepus-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="currentColor" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="currentColor" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+  <!-- Constellation glyph: the hare as a connect-the-dots figure -->
+  <g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <!-- ears -->
+    <path d="M58 14 L64 44"/>
+    <path d="M72 18 L74 44"/>
+    <!-- head to body spine -->
+    <path d="M64 44 L74 44 L90 52 L118 56 L148 60"/>
+    <!-- back arc -->
+    <path d="M90 52 Q108 36 150 44"/>
+    <!-- belly/legs -->
+    <path d="M118 56 L124 82 L108 94"/>
+    <path d="M148 60 L156 88 L142 100"/>
+    <!-- front foot -->
+    <path d="M90 52 L78 76 L68 82"/>
+    <!-- tail -->
+    <path d="M148 60 L174 62"/>
+  </g>
+  <!-- Stars along the spine -->
+  <g fill="url(#lepus-grad)">
+    <circle cx="58" cy="14" r="2.4"/>
+    <circle cx="72" cy="18" r="2"/>
+    <circle cx="64" cy="44" r="2.2"/>
+    <circle cx="74" cy="44" r="1.8"/>
+    <circle cx="90" cy="52" r="3.6"/>
+    <circle cx="118" cy="56" r="3"/>
+    <circle cx="148" cy="60" r="3.8"/>
+    <circle cx="174" cy="62" r="2.4"/>
+    <circle cx="150" cy="44" r="2.2"/>
+    <circle cx="108" cy="36" r="1.6"/>
+    <circle cx="78" cy="76" r="2"/>
+    <circle cx="68" cy="82" r="1.6"/>
+    <circle cx="124" cy="82" r="2"/>
+    <circle cx="108" cy="94" r="1.8"/>
+    <circle cx="156" cy="88" r="2"/>
+    <circle cx="142" cy="100" r="1.6"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="200" y="62" font-family="'Fraunces', Georgia, serif" font-size="36" font-weight="500" letter-spacing="-0.01em" fill="currentColor">Lepus</text>
+  <text x="200" y="86" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="8.5" letter-spacing="0.12em" fill="currentColor" opacity="0.6">THE · HARE · CONSTELLATION</text>
+</svg>
