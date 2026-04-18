@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ConstellationHero from '../components/ConstellationHero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import EcoCard from '../components/EcoCard.astro';
+import { coreProjects, ecosystemProjects, projects } from '../data/projects';
+
+const totalCount = projects.length;
+const coreCount = coreProjects.length;
+const ecoCount = ecosystemProjects.length;
+---
+
+<BaseLayout
+  title="marcosgz · projects"
+  description="A catalogue of open-source Ruby gems — Esse, Lepus, SiteMaps and the broader Esse ecosystem."
+  current="home"
+>
+  <section class="hero">
+    <div class="hero__grid">
+      <div class="hero__text">
+        <div class="hero__eyebrow rise rise--1">
+          <span class="hero__eyebrow-dot" aria-hidden="true"></span>
+          <span>A catalogue of Ruby gems, annotated.</span>
+        </div>
+
+        <h1 class="hero__title rise rise--2">
+          <span class="hero__title-line">Practical</span>
+          <span class="hero__title-line hero__title-line--italic">infrastructure</span>
+          <span class="hero__title-line">for Ruby apps.</span>
+        </h1>
+
+        <p class="hero__lede rise rise--3">
+          Search. Messaging. Sitemaps. Tenancy. Each gem is small, scoped, and
+          documented — a constellation of tools built the way I wish they'd
+          existed when I first needed them.
+        </p>
+
+        <div class="hero__meta rise rise--4">
+          <div class="hero__stat">
+            <span class="hero__stat-num">{totalCount}</span>
+            <span class="hero__stat-label">gems, documented</span>
+          </div>
+          <div class="hero__stat-sep" aria-hidden="true"></div>
+          <div class="hero__stat">
+            <span class="hero__stat-num">{coreCount}</span>
+            <span class="hero__stat-label">core libraries</span>
+          </div>
+          <div class="hero__stat-sep" aria-hidden="true"></div>
+          <div class="hero__stat">
+            <span class="hero__stat-num">{ecoCount}</span>
+            <span class="hero__stat-label">esse extensions</span>
+          </div>
+        </div>
+
+        <div class="hero__cta rise rise--5">
+          <a class="btn btn--primary" href="/esse/">
+            Start with Esse
+            <span aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn--ghost" href="#projects">
+            Browse the index
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__constellation rise rise--6">
+        <ConstellationHero />
+        <div class="hero__caption" aria-hidden="true">
+          fig. 01 — the marcosgz projects, plotted as a dependency constellation
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <header class="projects__head">
+      <div class="projects__numeral">§ I</div>
+      <h2 class="projects__title">
+        Core libraries
+      </h2>
+      <p class="projects__sub">
+        Three standalone gems. Each solves a different class of problem — search,
+        messaging, and SEO — with no shared runtime.
+      </p>
+    </header>
+
+    <ol class="projects__list">
+      {coreProjects.map((project, i) => (
+        <li class={`rise rise--${Math.min(i + 1, 6)}`}>
+          <ProjectCard project={project} index={i} />
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="ecosystem">
+    <header class="ecosystem__head">
+      <div class="projects__numeral">§ II</div>
+      <h2 class="ecosystem__title">
+        The <em>Esse</em> ecosystem
+      </h2>
+      <p class="ecosystem__sub">
+        Extensions that let Esse speak ActiveRecord, Sequel, Rails, Sidekiq,
+        Jbuilder, Kaminari, Pagy — and hook deeply into your indexing pipeline.
+      </p>
+    </header>
+
+    <div class="ecosystem__grid">
+      {ecosystemProjects.map((project) => (
+        <EcoCard project={project} />
+      ))}
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="closing__rule" aria-hidden="true"></div>
+    <p class="closing__text">
+      Every gem here is open source, MIT-licensed, and maintained in the open.
+      Pull requests, issues, and stars are welcome —
+      <a href="https://github.com/marcosgz">github.com/marcosgz</a>.
+    </p>
+  </section>
+</BaseLayout>

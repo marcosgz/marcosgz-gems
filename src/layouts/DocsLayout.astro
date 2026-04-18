@@ -1,0 +1,146 @@
+---
+import type { MarkdownHeading } from 'astro';
+import BaseLayout from './BaseLayout.astro';
+import DocNav from '../components/DocNav.astro';
+import TOC from '../components/TOC.astro';
+import { getProject } from '../data/projects';
+
+interface Props {
+  project: string;
+  title: string;
+  description?: string;
+  slug: string;
+  headings: MarkdownHeading[];
+}
+const { project, title, description, slug, headings } = Astro.props as Props;
+
+const meta = getProject(project);
+const pageTitle = slug === 'index' ? meta?.displayName ?? project : `${title} · ${meta?.displayName ?? project}`;
+const desc = description ?? meta?.tagline ?? `Documentation for ${meta?.displayName ?? project}.`;
+
+const siteOrigin = (Astro.site ?? new URL('https://projects.marcosz.com.br')).origin;
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Projects',
+      item: `${siteOrigin}/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: meta?.displayName ?? project,
+      item: `${siteOrigin}/${project}/`,
+    },
+    ...(slug !== 'index'
+      ? [
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: title,
+            item: `${siteOrigin}/${project}/${slug}/`,
+          },
+        ]
+      : []),
+  ],
+};
+
+const techArticleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: title,
+  description: desc,
+  inLanguage: 'en',
+  author: {
+    '@type': 'Person',
+    name: 'Marcos G. Zimmermann',
+    url: 'https://github.com/marcosgz',
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Marcos G. Zimmermann',
+    url: 'https://github.com/marcosgz',
+  },
+  isPartOf: meta
+    ? {
+        '@type': 'SoftwareSourceCode',
+        name: meta.displayName,
+        codeRepository: meta.repo,
+        programmingLanguage: meta.language,
+      }
+    : undefined,
+  about: meta?.tagline,
+};
+
+const keywords = meta ? [meta.name, meta.displayName, meta.language, 'documentation', title] : [title];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={desc}
+  current={project}
+  ogType="article"
+  section={meta?.displayName ?? project}
+  keywords={keywords}
+>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbJsonLd)}
+  />
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(techArticleJsonLd)}
+  />
+
+  <div class="docs-shell">
+    <DocNav project={project} currentSlug={slug} />
+
+    <article class="docs-article" itemscope itemtype="https://schema.org/TechArticle">
+      <header class="docs-article__head">
+        <nav class="docs-article__crumbs" aria-label="Breadcrumb">
+          <a href="/">Index</a>
+          <span aria-hidden="true">·</span>
+          <a href={`/${project}/`} itemprop="isPartOf">{meta?.displayName ?? project}</a>
+          {slug !== 'index' && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span aria-current="page">{title}</span>
+            </>
+          )}
+        </nav>
+        <h1 class="docs-article__title" itemprop="headline">{title}</h1>
+        {meta?.tagline && slug === 'index' && (
+          <p class="docs-article__lede" itemprop="description">{meta.tagline}</p>
+        )}
+        <div class="docs-article__rule" aria-hidden="true"></div>
+      </header>
+
+      <div class="prose" itemprop="articleBody">
+        <slot />
+      </div>
+
+      {meta?.repo && (
+        <footer class="docs-article__foot">
+          <a
+            class="docs-article__source"
+            href={`${meta.repo}/tree/main/docs`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View source on GitHub →
+          </a>
+        </footer>
+      )}
+    </article>
+
+    <div class="docs-shell__rail">
+      <TOC headings={headings} />
+    </div>
+  </div>
+</BaseLayout>

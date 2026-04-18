@@ -1,0 +1,24 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props as Props;
+// Strip the "Esse · " prefix for compactness; fall back to displayName.
+const tightName = project.displayName.replace(/^Esse\s*·\s*/, '');
+---
+
+<a class="eco-card" href={`/${project.slug}/`} data-mag={project.magnitude}>
+  <div class="eco-card__head">
+    <span class="eco-card__mark" aria-hidden="true">·</span>
+    <span class="eco-card__ns">esse /</span>
+    <span class="eco-card__name">{tightName}</span>
+  </div>
+  <p class="eco-card__tag">{project.tagline}</p>
+  <div class="eco-card__foot">
+    <span>{project.language}</span>
+    <span class="eco-card__dot" aria-hidden="true">✦</span>
+    <span>docs →</span>
+  </div>
+</a>

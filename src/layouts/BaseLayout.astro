@@ -1,0 +1,161 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  current?: string;
+  ogType?: 'website' | 'article';
+  /** When set, renders an article:modified_time meta tag. */
+  lastModified?: Date | string;
+  /** Article section — e.g., project name for docs pages. */
+  section?: string;
+  /** Optional keyword list for the meta keywords tag. */
+  keywords?: string[];
+  /** If true, tells crawlers not to index. Defaults to false. */
+  noindex?: boolean;
+}
+const {
+  title = 'marcosgz · projects',
+  description = 'Documentation for the open-source Ruby gems by Marcos G. Zimmermann — Esse, Lepus, SiteMaps and the full Esse ecosystem (ActiveRecord, Rails, Sequel, Sidekiq, Jbuilder, Kaminari, Pagy).',
+  current,
+  ogType = 'website',
+  lastModified,
+  section,
+  keywords,
+  noindex = false,
+} = Astro.props as Props;
+
+const defaultKeywords = [
+  'Ruby',
+  'Ruby on Rails',
+  'Elasticsearch',
+  'OpenSearch',
+  'RabbitMQ',
+  'sitemap',
+  'gem',
+  'open source',
+  'Esse',
+  'Lepus',
+  'SiteMaps',
+  'marcosgz',
+];
+const allKeywords = [...defaultKeywords, ...(keywords ?? [])];
+
+const siteUrl = Astro.site ?? new URL('https://projects.marcosz.com.br');
+const fullTitle = title === 'marcosgz · projects' ? title : `${title} — marcosgz · projects`;
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = new URL('/favicon.svg', siteUrl).href;
+
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Marcos G. Zimmermann',
+  alternateName: 'marcosgz',
+  url: siteUrl.href,
+  sameAs: ['https://github.com/marcosgz'],
+};
+const siteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'marcosgz · projects',
+  url: siteUrl.href,
+  description,
+  inLanguage: 'en',
+  author: orgJsonLd,
+};
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Marcos G. Zimmermann" />
+    <meta name="keywords" content={allKeywords.join(', ')} />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f1ea" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0e1a" />
+
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta
+        name="robots"
+        content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+      />
+    )}
+
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+    <!-- Preconnect nothing — static self-hosted fonts keep the waterfall short. -->
+
+    <meta property="og:site_name" content="marcosgz · projects" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="marcosgz · projects — constellation logo" />
+
+    {ogType === 'article' && section && (
+      <meta property="article:section" content={section} />
+    )}
+    {ogType === 'article' && lastModified && (
+      <meta
+        property="article:modified_time"
+        content={new Date(lastModified).toISOString()}
+      />
+    )}
+    {ogType === 'article' && (
+      <meta property="article:author" content="https://github.com/marcosgz" />
+    )}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="marcosgz · projects" />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(siteJsonLd)}
+    />
+
+    <slot name="head" />
+
+    <script is:inline>
+      // Resolve theme before first paint. Order: stored → system → light.
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          if (stored === 'light' || stored === 'dark') {
+            document.documentElement.setAttribute('data-theme', stored);
+            return;
+          }
+        } catch (e) {}
+        var prefersDark =
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header current={current} />
+    <main id="main" class="site-main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

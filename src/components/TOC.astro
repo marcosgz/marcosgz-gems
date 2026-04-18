@@ -1,0 +1,55 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+const { headings } = Astro.props as Props;
+
+// Only surface H2/H3 — deeper levels clutter the rail.
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{toc.length > 0 && (
+  <aside class="toc" aria-label="On this page">
+    <div class="toc__eyebrow">On this page</div>
+    <ol class="toc__list">
+      {toc.map((h) => (
+        <li class:list={['toc__item', `toc__item--d${h.depth}`]}>
+          <a href={`#${h.slug}`} data-toc-link={h.slug}>{h.text}</a>
+        </li>
+      ))}
+    </ol>
+  </aside>
+)}
+
+<script>
+  function wireTOC() {
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+    if (!links.length) return;
+    const byId = new Map<string, HTMLAnchorElement>();
+    links.forEach((a) => byId.set(a.getAttribute('data-toc-link')!, a));
+
+    const targets = links
+      .map((a) => document.getElementById(a.getAttribute('data-toc-link')!))
+      .filter((el): el is HTMLElement => !!el);
+    if (!targets.length) return;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const link = byId.get(entry.target.id);
+          if (!link) return;
+          if (entry.isIntersecting) {
+            links.forEach((l) => l.classList.remove('toc__link--active'));
+            link.classList.add('toc__link--active');
+          }
+        });
+      },
+      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
+    );
+    targets.forEach((t) => obs.observe(t));
+  }
+  wireTOC();
+  document.addEventListener('astro:page-load', wireTOC);
+</script>

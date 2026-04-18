@@ -24,7 +24,20 @@ export default defineConfig({
       },
       defaultProps: { showLineNumbers: false },
     }),
-    sitemap(),
+    sitemap({
+      changefreq: 'monthly',
+      priority: 0.7,
+      lastmod: new Date(),
+      serialize(item) {
+        // Home and top-level project pages are more important than deep docs.
+        const url = new URL(item.url);
+        const depth = url.pathname.split('/').filter(Boolean).length;
+        if (depth === 0) item.priority = 1.0;
+        else if (depth === 1) item.priority = 0.9;
+        else item.priority = 0.6;
+        return item;
+      },
+    }),
   ],
   markdown: {
     smartypants: true,

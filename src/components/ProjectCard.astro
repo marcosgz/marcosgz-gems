@@ -1,0 +1,36 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  index: number;
+}
+const { project, index } = Astro.props as Props;
+const num = String(index + 1).padStart(2, '0');
+---
+
+<a class="project-card" href={`/${project.slug}/`} data-slug={project.slug}>
+  <div class="project-card__index">
+    <span class="project-card__num">{num}</span>
+    <span class="project-card__marker" aria-hidden="true">✦</span>
+  </div>
+
+  <div class="project-card__title">
+    <h2>{project.displayName}</h2>
+    <span class="project-card__subtitle">· {project.name}</span>
+  </div>
+
+  <p class="project-card__tagline">{project.tagline}</p>
+
+  <div class="project-card__meta">
+    <span class="project-card__lang">{project.language}</span>
+    {project.badge && <span class="project-card__badge">— {project.badge}</span>}
+  </div>
+
+  <div class="project-card__arrow" aria-hidden="true">
+    <span>Read</span>
+    <svg viewBox="0 0 24 12" width="40" height="12">
+      <path d="M0 6 L36 6 M30 1 L36 6 L30 11" fill="none" stroke="currentColor" stroke-width="1.1" />
+    </svg>
+  </div>
+</a>

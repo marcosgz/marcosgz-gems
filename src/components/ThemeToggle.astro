@@ -1,0 +1,39 @@
+---
+// Theme toggle — reads/writes localStorage, falls back to system preference.
+// The actual preference-resolving script is inlined in BaseLayout so it runs
+// before first paint and prevents a theme flash.
+---
+
+<button
+  type="button"
+  class="theme-toggle"
+  aria-label="Toggle colour theme"
+  data-theme-toggle
+>
+  <span class="theme-toggle__label" aria-hidden="true">
+    <span class="theme-toggle__sun">☀</span>
+    <span class="theme-toggle__moon">☾</span>
+  </span>
+  <span class="theme-toggle__text">
+    <span data-theme-text="light">Day</span>
+    <span data-theme-text="dark">Night</span>
+  </span>
+</button>
+
+<script>
+  function wire() {
+    const btn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const root = document.documentElement;
+      const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try {
+        localStorage.setItem('theme', next);
+      } catch {}
+    });
+  }
+  wire();
+  document.addEventListener('astro:page-load', wire);
+</script>

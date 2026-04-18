@@ -1,0 +1,40 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__col">
+      <div class="site-footer__label">Authored</div>
+      <div class="site-footer__value">
+        by <a href="https://github.com/marcosgz">Marcos G. Zimmermann</a>
+      </div>
+    </div>
+
+    <div class="site-footer__col">
+      <div class="site-footer__label">Licence</div>
+      <div class="site-footer__value">MIT · gem by gem</div>
+    </div>
+
+    <div class="site-footer__col">
+      <div class="site-footer__label">Index</div>
+      <ul class="site-footer__list">
+        <li><a href="/esse/">Esse</a></li>
+        <li><a href="/lepus/">Lepus</a></li>
+        <li><a href="/site-maps/">SiteMaps</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col site-footer__col--right">
+      <div class="site-footer__label">Source</div>
+      <div class="site-footer__value">
+        <a href="https://github.com/marcosgz">github.com/marcosgz</a>
+      </div>
+    </div>
+  </div>
+  <div class="site-footer__baseline">
+    <span>© {year}</span>
+    <span class="site-footer__sep" aria-hidden="true">·</span>
+    <span class="site-footer__small">Built on Astro. Hosted on Cloudflare Pages.</span>
+  </div>
+</footer>

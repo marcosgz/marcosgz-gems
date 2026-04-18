@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import { getProject } from '../data/projects';
+
+interface Props {
+  project: string;
+  currentSlug: string;
+}
+const { project, currentSlug } = Astro.props as Props;
+
+const all = await getCollection('docs');
+const pages = all
+  .filter((e) => e.data.project === project)
+  .sort((a, b) => {
+    if (a.data.order !== b.data.order) return a.data.order - b.data.order;
+    return a.data.title.localeCompare(b.data.title);
+  });
+
+const meta = getProject(project);
+---
+
+<aside class="doc-nav" aria-label="Documentation sections">
+  <div class="doc-nav__head">
+    <div class="doc-nav__eyebrow">Project</div>
+    <div class="doc-nav__title">{meta?.displayName ?? project}</div>
+    {meta?.repo && (
+      <a class="doc-nav__repo" href={meta.repo} target="_blank" rel="noopener noreferrer">
+        github.com/marcosgz/{meta.name}
+      </a>
+    )}
+  </div>
+
+  <nav class="doc-nav__list" aria-label="Pages">
+    <ol>
+      {pages.map((page, idx) => {
+        const href = page.data.slug === 'index' ? `/${project}/` : `/${project}/${page.data.slug}/`;
+        const current = page.data.slug === currentSlug;
+        return (
+          <li class:list={['doc-nav__item', current && 'doc-nav__item--current']}>
+            <a href={href}>
+              <span class="doc-nav__num">{String(idx + 1).padStart(2, '0')}</span>
+              <span class="doc-nav__label">{page.data.title}</span>
+            </a>
+          </li>
+        );
+      })}
+    </ol>
+  </nav>
+</aside>
