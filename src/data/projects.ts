@@ -170,6 +170,17 @@ export const projects: Project[] = [
     repo: 'https://github.com/marcosgz/esse-rspec',
     language: 'Ruby',
   },
+  {
+    slug: 'esse-will_paginate',
+    name: 'esse-will_paginate',
+    displayName: 'Esse · WillPaginate',
+    tagline: 'WillPaginate pagination for Esse search queries.',
+    group: 'esse-ecosystem',
+    stars: [500, 380],
+    magnitude: 3,
+    repo: 'https://github.com/marcosgz/esse-will_paginate',
+    language: 'Ruby',
+  },
 ];
 
 export const coreProjects = projects.filter((p) => p.group === 'core');
@@ -193,6 +204,7 @@ export const constellationEdges: [string, string][] = [
   ['esse-sequel', 'esse-hooks'],
   ['esse-hooks', 'esse-kaminari'],
   ['esse', 'esse-rspec'],
+  ['esse', 'esse-will_paginate'],
   ['esse', 'lepus'],
   ['lepus', 'site_maps'],
 ];
