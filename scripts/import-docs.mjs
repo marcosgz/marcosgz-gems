@@ -25,6 +25,7 @@ const projects = [
   { slug: 'esse-jbuilder', gem: 'esse-jbuilder', order: 90 },
   { slug: 'esse-kaminari', gem: 'esse-kaminari', order: 100 },
   { slug: 'esse-pagy', gem: 'esse-pagy', order: 110 },
+  { slug: 'esse-rspec', gem: 'esse-rspec', order: 120 },
 ];
 
 // Preferred page order within a project.

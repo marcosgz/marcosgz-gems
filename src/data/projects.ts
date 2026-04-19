@@ -159,6 +159,17 @@ export const projects: Project[] = [
     repo: 'https://github.com/marcosgz/esse-pagy',
     language: 'Ruby',
   },
+  {
+    slug: 'esse-rspec',
+    name: 'esse-rspec',
+    displayName: 'Esse · RSpec',
+    tagline: 'RSpec matchers and index stubs for testing Esse-backed code without a live cluster.',
+    group: 'esse-ecosystem',
+    stars: [700, 380],
+    magnitude: 3,
+    repo: 'https://github.com/marcosgz/esse-rspec',
+    language: 'Ruby',
+  },
 ];
 
 export const coreProjects = projects.filter((p) => p.group === 'core');
@@ -181,6 +192,7 @@ export const constellationEdges: [string, string][] = [
   ['esse-async_indexing', 'esse-hooks'],
   ['esse-sequel', 'esse-hooks'],
   ['esse-hooks', 'esse-kaminari'],
+  ['esse', 'esse-rspec'],
   ['esse', 'lepus'],
   ['lepus', 'site_maps'],
 ];
