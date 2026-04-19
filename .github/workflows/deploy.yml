@@ -40,5 +40,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: >-
             pages deploy dist
-            --project-name=marcosgz-projects
+            --project-name=marcosgz-gems
             --branch=${{ github.head_ref || github.ref_name }}

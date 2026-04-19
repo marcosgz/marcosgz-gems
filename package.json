@@ -1,9 +1,9 @@
 {
-  "name": "marcosgz-projects",
+  "name": "marcosgz-gems",
   "type": "module",
   "private": true,
   "version": "0.1.0",
-  "description": "Documentation hub for marcosgz open-source projects — projects.marcosz.com.br",
+  "description": "Documentation hub for marcosgz open-source Ruby gems — gems.marcosz.com.br",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

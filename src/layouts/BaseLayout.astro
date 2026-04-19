@@ -44,7 +44,7 @@ const defaultKeywords = [
 ];
 const allKeywords = [...defaultKeywords, ...(keywords ?? [])];
 
-const siteUrl = Astro.site ?? new URL('https://projects.marcosz.com.br');
+const siteUrl = Astro.site ?? new URL('https://gems.marcosz.com.br');
 const fullTitle = title === 'marcosgz · projects' ? title : `${title} — marcosgz · projects`;
 const canonical = new URL(Astro.url.pathname, siteUrl).href;
 const ogImage = new URL('/favicon.svg', siteUrl).href;

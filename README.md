@@ -2,7 +2,7 @@
 
 Documentation site for the open-source Ruby gems maintained by
 [@marcosgz](https://github.com/marcosgz). Built with [Astro](https://astro.build),
-deployed to Cloudflare Pages at <https://projects.marcosz.com.br>.
+deployed to Cloudflare Pages at <https://gems.marcosz.com.br>.
 
 Covers:
 
@@ -48,11 +48,11 @@ The repo deploys to **Cloudflare Pages** via a GitHub Actions workflow
 
 ### One-time setup
 
-1. Create a Cloudflare Pages project named `marcosgz-projects` (Direct Upload).
+1. Create a Cloudflare Pages project named `marcosgz-gems` (Direct Upload).
 2. In the GitHub repo, add two secrets:
    - `CLOUDFLARE_API_TOKEN` — a token with "Cloudflare Pages: Edit" scope.
    - `CLOUDFLARE_ACCOUNT_ID` — your Cloudflare account ID.
-3. In Cloudflare, bind the custom domain `projects.marcosz.com.br` to the
+3. In Cloudflare, bind the custom domain `gems.marcosz.com.br` to the
    Pages project.
 
 ### On push
@@ -61,7 +61,7 @@ Every push to `main` runs:
 
 - `npm ci`
 - `npm run build` — produces `./dist`
-- `wrangler pages deploy dist --project-name=marcosgz-projects`
+- `wrangler pages deploy dist --project-name=marcosgz-gems`
 
 Pull requests deploy to preview URLs automatically.
 

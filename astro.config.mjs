@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import expressiveCode from 'astro-expressive-code';
 
 export default defineConfig({
-  site: 'https://projects.marcosz.com.br',
+  site: 'https://gems.marcosz.com.br',
   trailingSlash: 'ignore',
   integrations: [
     expressiveCode({

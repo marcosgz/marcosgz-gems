@@ -18,7 +18,7 @@ const meta = getProject(project);
 const pageTitle = slug === 'index' ? meta?.displayName ?? project : `${title} · ${meta?.displayName ?? project}`;
 const desc = description ?? meta?.tagline ?? `Documentation for ${meta?.displayName ?? project}.`;
 
-const siteOrigin = (Astro.site ?? new URL('https://projects.marcosz.com.br')).origin;
+const siteOrigin = (Astro.site ?? new URL('https://gems.marcosz.com.br')).origin;
 
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
