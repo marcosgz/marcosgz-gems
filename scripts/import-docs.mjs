@@ -15,6 +15,7 @@ const projects = [
   { slug: 'esse', gem: 'esse', order: 10 },
   { slug: 'lepus', gem: 'lepus', order: 20 },
   { slug: 'site-maps', gem: 'site_maps', order: 30 },
+  { slug: 'multitenancy-rails', gem: 'multitenancy-rails', order: 35 },
   { slug: 'esse-active_record', gem: 'esse-active_record', order: 40 },
   { slug: 'esse-rails', gem: 'esse-rails', order: 50 },
   { slug: 'esse-sequel', gem: 'esse-sequel', order: 60 },

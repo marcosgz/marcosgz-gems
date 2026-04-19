@@ -58,6 +58,20 @@ export const projects: Project[] = [
     badge: 'core',
   },
   {
+    slug: 'multitenancy-rails',
+    name: 'multitenancy-rails',
+    displayName: 'Multitenancy · Rails',
+    tagline:
+      'White-label, multi-tenant Rails applications — per-tenant themes, view namespaces, and isolated asset pipelines.',
+    group: 'core',
+    stars: [380, 80],
+    magnitude: 1,
+    logo: { type: 'svg', href: '/logos/multitenancy-rails.svg' },
+    repo: 'https://github.com/marcosgz/multitenancy-rails',
+    language: 'Ruby',
+    badge: 'core',
+  },
+  {
     slug: 'esse-active_record',
     name: 'esse-active_record',
     displayName: 'Esse · ActiveRecord',
