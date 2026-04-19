@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="404 — marcosgz · projects"
+  description="That page could not be found in the catalogue."
+>
+  <section class="nf">
+    <div class="nf__grid">
+      <div class="nf__numeral" aria-hidden="true">§ 404</div>
+
+      <h1 class="nf__title">
+        <span class="nf__title-line">A star</span>
+        <span class="nf__title-line nf__title-line--italic">not yet catalogued.</span>
+      </h1>
+
+      <p class="nf__lede">
+        The page you followed is outside the constellation. It may have been
+        renamed, unshipped, or never existed to begin with. You can wander back
+        to the index or browse one of the documented projects below.
+      </p>
+
+      <div class="nf__cta">
+        <a class="btn btn--primary" href="/">
+          Back to the index
+          <span aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn--ghost" href="/esse/">Browse Esse</a>
+      </div>
+
+      <ul class="nf__list" aria-label="Project shortcuts">
+        <li><a href="/esse/">Esse</a></li>
+        <li><a href="/lepus/">Lepus</a></li>
+        <li><a href="/site_maps/">SiteMaps</a></li>
+        <li><a href="/multitenancy-rails/">Multitenancy · Rails</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 6rem;
+  }
+  .nf__grid { display: grid; gap: 1.5rem; }
+  .nf__numeral {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .nf__title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.4rem, 5.2vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0;
+    font-variation-settings: 'opsz' 144, 'SOFT' 20, 'WONK' 1;
+  }
+  .nf__title-line { display: block; }
+  .nf__title-line--italic {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-variation-settings: 'opsz' 144, 'SOFT' 40, 'WONK' 1;
+  }
+  .nf__lede {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 38rem;
+    margin: 0.5rem 0 0;
+  }
+  .nf__cta { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+  .nf__list {
+    list-style: none;
+    padding: 1.25rem 0 0;
+    margin: 1.5rem 0 0;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+  }
+  .nf__list a { color: var(--ink-soft); text-decoration: none; }
+  .nf__list a:hover { color: var(--accent); }
+</style>
