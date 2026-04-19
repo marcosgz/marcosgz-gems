@@ -2,7 +2,7 @@
 title: CLI
 slug: cli
 order: 20
-project: site-maps
+project: site_maps
 ---
 The gem installs a `site_maps` executable backed by Thor.
 

@@ -10,11 +10,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
 const gemsRoot = path.resolve(process.env.HOME, 'workspace', 'gems');
 const contentRoot = path.join(projectRoot, 'src', 'content', 'docs');
+const publicImagesRoot = path.join(projectRoot, 'public', 'images');
 
 const projects = [
   { slug: 'esse', gem: 'esse', order: 10 },
   { slug: 'lepus', gem: 'lepus', order: 20 },
-  { slug: 'site-maps', gem: 'site_maps', order: 30 },
+  { slug: 'site_maps', gem: 'site_maps', order: 30 },
   { slug: 'multitenancy-rails', gem: 'multitenancy-rails', order: 35 },
   { slug: 'esse-active_record', gem: 'esse-active_record', order: 40 },
   { slug: 'esse-rails', gem: 'esse-rails', order: 50 },
@@ -125,6 +126,29 @@ async function processProject({ slug, gem, order }) {
     await fs.writeFile(absDst, frontmatter + body);
     count++;
   }
+
+  // If the gem ships a docs/images/ folder, mirror it under public/images/<slug>/
+  // so doc pages can reference `/images/<slug>/<file>`. Non-destructive: never
+  // deletes existing images (downstream may have manually-placed screenshots).
+  const imagesSrc = path.join(src, 'images');
+  try {
+    const imageEntries = await fs.readdir(imagesSrc);
+    const imagesDst = path.join(publicImagesRoot, slug);
+    await fs.mkdir(imagesDst, { recursive: true });
+    for (const file of imageEntries) {
+      const from = path.join(imagesSrc, file);
+      const to = path.join(imagesDst, file);
+      const stat = await fs.stat(from);
+      if (stat.isFile()) await fs.copyFile(from, to);
+    }
+    if (imageEntries.length > 0) {
+      console.log(`[ok] ${slug}: ${count} pages, ${imageEntries.length} images`);
+      return count;
+    }
+  } catch {
+    // no images/ dir — fine
+  }
+
   console.log(`[ok] ${slug}: ${count} pages`);
   return count;
 }

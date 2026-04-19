@@ -2,7 +2,7 @@
 title: API Reference
 slug: api
 order: 29
-project: site-maps
+project: site_maps
 ---
 ## `SiteMaps` (top-level module)
 

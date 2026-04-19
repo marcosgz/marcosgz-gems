@@ -2,7 +2,7 @@
 title: Adapters
 slug: adapters
 order: 11
-project: site-maps
+project: site_maps
 ---
 An **adapter** is the storage backend for generated sitemap files. Three adapters ship with the gem; a clean interface makes it easy to write your own.
 

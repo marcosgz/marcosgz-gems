@@ -99,7 +99,7 @@ src/
 scripts/
   import-docs.mjs
 public/
-  logos/                    # esse.png, lepus.svg, site-maps.svg
+  logos/                    # esse.png, lepus.svg, site_maps.svg, multitenancy-rails.svg
   favicon.svg
 ```
 

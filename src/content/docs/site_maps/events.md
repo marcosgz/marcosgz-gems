@@ -2,7 +2,7 @@
 title: Events
 slug: events
 order: 18
-project: site-maps
+project: site_maps
 ---
 `site_maps` ships a lightweight pub/sub system under `SiteMaps::Notification`. Use it for logging, metrics, or reacting to particular generation phases.
 

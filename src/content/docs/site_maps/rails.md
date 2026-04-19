@@ -2,7 +2,7 @@
 title: Rails Integration
 slug: rails
 order: 27
-project: site-maps
+project: site_maps
 ---
 The Railtie loads automatically when Rails is present. It wires two things:
 

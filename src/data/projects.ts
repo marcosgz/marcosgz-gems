@@ -44,7 +44,7 @@ export const projects: Project[] = [
     badge: 'core',
   },
   {
-    slug: 'site-maps',
+    slug: 'site_maps',
     name: 'site_maps',
     displayName: 'SiteMaps',
     tagline:
@@ -52,7 +52,7 @@ export const projects: Project[] = [
     group: 'core',
     stars: [820, 300],
     magnitude: 1,
-    logo: { type: 'svg', href: '/logos/site-maps.svg' },
+    logo: { type: 'svg', href: '/logos/site_maps.svg' },
     repo: 'https://github.com/marcosgz/site_maps',
     language: 'Ruby',
     badge: 'core',
@@ -182,5 +182,5 @@ export const constellationEdges: [string, string][] = [
   ['esse-sequel', 'esse-hooks'],
   ['esse-hooks', 'esse-kaminari'],
   ['esse', 'lepus'],
-  ['lepus', 'site-maps'],
+  ['lepus', 'site_maps'],
 ];

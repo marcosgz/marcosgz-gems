@@ -2,7 +2,7 @@
 title: Rack Middleware
 slug: middleware
 order: 14
-project: site-maps
+project: site_maps
 ---
 `SiteMaps::Middleware` serves generated sitemap files directly from the app. Useful when you've generated to `public/sitemaps/` (filesystem adapter) and want proper `Content-Type`, gzip handling, and XSL stylesheet routing without editing your web-server config.
 

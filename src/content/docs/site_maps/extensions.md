@@ -2,7 +2,7 @@
 title: SEO Extensions
 slug: extensions
 order: 21
-project: site-maps
+project: site_maps
 ---
 `s.add` accepts options for every sitemap extension recognized by Google and Bing. Pass any of the following alongside `lastmod`, `priority`, and `changefreq`.
 

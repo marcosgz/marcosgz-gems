@@ -2,7 +2,7 @@
 title: site_maps
 slug: index
 order: -1
-project: site-maps
+project: site_maps
 ---
 Concurrent, adapter-based sitemap.xml generation for Ruby applications.
 

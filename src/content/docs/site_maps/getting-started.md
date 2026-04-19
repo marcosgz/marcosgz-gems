@@ -2,7 +2,7 @@
 title: Getting Started
 slug: getting-started
 order: 1
-project: site-maps
+project: site_maps
 ---
 ## Install
 

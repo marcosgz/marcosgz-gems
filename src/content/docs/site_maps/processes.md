@@ -2,7 +2,7 @@
 title: Processes
 slug: processes
 order: 10
-project: site-maps
+project: site_maps
 ---
 A **process** is a unit of work that produces part of a sitemap. Each process runs on its own thread, writes its own URL set, and becomes an entry in the sitemap index.
 
