@@ -6,6 +6,8 @@ project: lepus
 ---
 A producer publishes messages to an exchange. It's a subclass of `Lepus::Producer` with a `configure` call and whatever convenience methods you want on top.
 
+> **Looking for a one-off publish?** Skip straight to [`Lepus::Publisher`](#lepuspublisher--one-off-publishing) — a lower-level API for pushing a single message without declaring a `Producer` class, middleware chain, or DSL.
+
 ## Minimal example
 
 ```ruby
@@ -175,3 +177,61 @@ end
 ## Testing
 
 See [testing.md](testing.md) — there's a `Lepus::Testing.producer_messages(ProducerClass)` helper that captures publishes in-memory.
+
+## `Lepus::Publisher` — one-off publishing
+
+Not every publish deserves a whole `Producer` class. When you just need to drop a message onto an exchange — a throwaway admin script, a rake task, a one-off migration notifier — reach for `Lepus::Publisher`.
+
+```ruby
+publisher = Lepus::Publisher.new('orders', type: :topic, durable: true)
+
+publisher.publish(
+  { order_id: 42, total: 99.99 },
+  routing_key: 'order.created'
+)
+```
+
+That's it — no subclass, no `configure` block, no middleware chain.
+
+### Constructor
+
+```ruby
+Lepus::Publisher.new(exchange_name, **exchange_options)
+```
+
+- `exchange_name` — the exchange to publish to. Declared on first publish if it doesn't exist.
+- `exchange_options` — merged over the defaults `{ type: :topic, durable: true, auto_delete: false }`.
+
+### Publishing
+
+```ruby
+publisher.publish(payload, **publish_options)
+```
+
+- `payload` — a `String` (sent as-is, `content_type: text/plain`) or any other object (serialized with `MultiJson`, `content_type: application/json`).
+- `publish_options` — merged over `{ persistent: true }`. All Bunny publish options are supported (`routing_key`, `headers`, `expiration`, `mandatory`, etc.).
+
+### Reusing an existing channel
+
+For batch publishes within an existing transaction, use `channel_publish` to reuse a channel you already hold:
+
+```ruby
+Lepus.config.producer_config.with_connection do |connection|
+  connection.with_channel do |channel|
+    10.times do |i|
+      publisher.channel_publish(channel, { seq: i }, routing_key: 'bulk.row')
+    end
+  end
+end
+```
+
+### When to pick `Publisher` vs `Producer`
+
+| Use `Lepus::Publisher` when… | Use `Lepus::Producer` when… |
+|---|---|
+| One-off publish from a script or task | The same exchange is used from many call sites |
+| You don't need middleware (`:json`, `:correlation_id`, `:instrumentation`) | You want reusable payload serialization or tracing |
+| You don't need `Lepus::Testing.producer_messages` to capture it | You want tests to capture the calls |
+| You don't need `Lepus::Producers.disable!(ProducerClass)` | You want per-class kill-switches |
+
+Both go through the same connection pool (`Lepus.config.producer_config`) and both respect `Lepus::Producers.enabled?(exchange_name)` — so `without_publishing { }` silences `Publisher` calls too.
