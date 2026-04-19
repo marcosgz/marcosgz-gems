@@ -6,16 +6,6 @@ project: lepus
 ---
 Lepus ships a Rack-based monitoring UI showing consumer status, throughput, and recent activity.
 
-<figure class="doc-figure">
-  <img
-    src="/images/lepus/lepus-web.png"
-    alt="Lepus web dashboard — overview of supervisors, workers, and recent activity"
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>fig. — the Lepus web dashboard running against a live cluster.</figcaption>
-</figure>
-
 ## Running it standalone
 
 ```bash

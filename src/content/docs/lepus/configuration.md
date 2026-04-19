@@ -72,7 +72,7 @@ config.worker(:high_priority, pool_size: 10)
 | `before_fork` | no-op | Block run in parent before fork — close sockets, drop DB connections, etc. |
 | `after_fork` | no-op | Block run in child after fork — reconnect, reseed RNG, etc. |
 
-Assign consumers to a named worker via their own `configure(process: { name: :high_priority })` (see [consumers.md](consumers.md)).
+Assign consumers to a named worker via their own `configure(process: { name: :high_priority })` (see [consumers.md](/lepus/consumers/)).
 
 ## Producer pool
 
@@ -100,7 +100,7 @@ config.consumer_middlewares do |chain|
 end
 ```
 
-See [middleware.md](middleware.md).
+See [middleware.md](/lepus/middleware/).
 
 ## Process registry
 
@@ -129,7 +129,7 @@ config.app_executor = nil             # disable executor wrapping
 config.logger       = MyLogger.new
 ```
 
-See [rails.md](rails.md).
+See [rails.md](/lepus/rails/).
 
 ## Threading error handler
 

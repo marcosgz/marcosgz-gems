@@ -99,7 +99,7 @@ Built-in middlewares:
 | `:honeybadger` | Notify Honeybadger on exceptions. |
 | `:unique` | Idempotent dedupe by `correlation_id` (requires storage). |
 
-Write your own — see [middleware.md](middleware.md).
+Write your own — see [middleware.md](/lepus/middleware/).
 
 ## Error handling
 
@@ -169,4 +169,4 @@ end
 
 ## Testing
 
-See [testing.md](testing.md) for the test-mode helpers.
+See [testing.md](/lepus/testing/) for the test-mode helpers.

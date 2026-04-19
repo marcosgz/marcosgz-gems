@@ -36,7 +36,7 @@ The CLI auto-loads the first existing file from:
 2. `config/esse.rb`
 3. `config/initializers/esse.rb`
 
-In a Rails app, add `require 'esse/rails'` (via the [esse-rails](../../esse-rails/docs/README.md) gem) and the Rails environment is loaded automatically.
+In a Rails app, add `require 'esse/rails'` (via the [esse-rails](/esse-rails/) gem) and the Rails environment is loaded automatically.
 
 ## Commands
 
@@ -174,7 +174,7 @@ bundle exec esse index update_lazy_attributes UsersIndex comment_count follower_
 
 ## Extension commands
 
-Gems like [esse-async_indexing](../../esse-async_indexing/docs/README.md) add more subcommands:
+Gems like [esse-async_indexing](/esse-async_indexing/) add more subcommands:
 
 ```bash
 bundle exec esse index async_import UsersIndex --service sidekiq

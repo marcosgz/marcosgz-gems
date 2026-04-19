@@ -59,7 +59,7 @@ bundle exec lepus start OrdersConsumer \
 5. Each worker opens a Bunny channel, declares queues/exchanges/bindings, and starts consuming with its configured thread pool.
 6. Supervisor monitors children via pipes and restarts any that crash.
 
-See [supervisor.md](supervisor.md) for the full lifecycle.
+See [supervisor.md](/lepus/supervisor/) for the full lifecycle.
 
 ## `lepus web`
 
@@ -84,7 +84,7 @@ bundle exec lepus web --port 9292 --host 0.0.0.0
 
 Visit http://localhost:9292.
 
-The web UI reads from the process registry backend (`config.process_registry_backend`). For multi-host visibility, set the backend to `:rabbitmq`. See [web.md](web.md).
+The web UI reads from the process registry backend (`config.process_registry_backend`). For multi-host visibility, set the backend to `:rabbitmq`. See [web.md](/lepus/web/).
 
 ### Mounting in Rails
 
@@ -96,7 +96,7 @@ require 'lepus/web'
 mount Lepus::Web::App, at: '/lepus'
 ```
 
-See [rails.md](rails.md) for authorization patterns.
+See [rails.md](/lepus/rails/) for authorization patterns.
 
 ## Exit codes
 
@@ -109,4 +109,4 @@ Workers that crash after boot are restarted by the supervisor; the supervisor it
 
 - `RABBITMQ_URL` — fallback for `config.rabbitmq_url` if not explicitly set.
 
-Everything else is configured via `Lepus.configure`. See [configuration.md](configuration.md).
+Everything else is configured via `Lepus.configure`. See [configuration.md](/lepus/configuration/).

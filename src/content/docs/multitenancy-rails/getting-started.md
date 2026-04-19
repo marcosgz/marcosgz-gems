@@ -41,7 +41,7 @@ themes/storefront/
 │   └── locales/en.yml
 ```
 
-See [generator.md](generator.md) for the full list of flags and what they add.
+See [generator.md](/multitenancy-rails/generator/) for the full list of flags and what they add.
 
 ## Mount your themes
 
@@ -110,6 +110,6 @@ What you **don't** get automatically:
 
 ## Next steps
 
-- [Themes](themes.md) — anatomy of a theme, namespace rules, view resolution quirks
-- [Integrations](integrations.md) — ES modules, Stimulus, Tailwind v4, spec discovery
-- [API reference](api.md)
+- [Themes](/multitenancy-rails/themes/) — anatomy of a theme, namespace rules, view resolution quirks
+- [Integrations](/multitenancy-rails/integrations/) — ES modules, Stimulus, Tailwind v4, spec discovery
+- [API reference](/multitenancy-rails/api/)

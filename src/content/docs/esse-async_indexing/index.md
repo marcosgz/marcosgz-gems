@@ -4,7 +4,7 @@ slug: index
 order: -1
 project: esse-async_indexing
 ---
-Background indexing for [Esse](../../esse/docs/README.md). Offload index/update/delete and bulk import operations to **Sidekiq** or **Faktory** instead of running them inline.
+Background indexing for [Esse](/esse/). Offload index/update/delete and bulk import operations to **Sidekiq** or **Faktory** instead of running them inline.
 
 ## What you get
 
@@ -16,8 +16,8 @@ Background indexing for [Esse](../../esse/docs/README.md). Offload index/update/
 
 ## Contents
 
-- [Usage guide](usage.md)
-- [API reference](api.md)
+- [Usage guide](/esse-async_indexing/usage/)
+- [API reference](/esse-async_indexing/api/)
 
 ## Quick start
 

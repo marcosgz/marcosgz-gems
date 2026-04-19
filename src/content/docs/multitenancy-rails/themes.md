@@ -139,7 +139,7 @@ Themes::Storefront::Engine.routes.draw do
 end
 ```
 
-The main app's `config/routes/multitenancy.rb` decides how each engine gets mounted — see [getting-started.md](getting-started.md).
+The main app's `config/routes/multitenancy.rb` decides how each engine gets mounted — see [getting-started.md](/multitenancy-rails/getting-started/).
 
 ## Assets & JavaScript
 
@@ -147,7 +147,7 @@ The main app's `config/routes/multitenancy.rb` decides how each engine gets moun
 - JS (importmap): each theme has its own `Importmap::Map` with its own pins, separate from the main app. The `javascript_importmap_tags` helper in the theme's layout draws the theme's importmap.
 - Tailwind: each theme has its own input file and gets its own build output under `app/assets/builds/<theme>/`.
 
-See [integrations.md](integrations.md) for the asset and JS story in detail.
+See [integrations.md](/multitenancy-rails/integrations/) for the asset and JS story in detail.
 
 ## Locales
 

@@ -124,11 +124,11 @@ end
 bin/rails generate multitenancy THEME_NAME [--importmap] [--tailwindcss]
 ```
 
-See [generator.md](generator.md).
+See [generator.md](/multitenancy-rails/generator/).
 
 ## Rake tasks
 
 - `multitenancy:tailwindcss:build`
 - `multitenancy:tailwindcss:watch`
 
-See [rake-tasks.md](rake-tasks.md).
+See [rake-tasks.md](/multitenancy-rails/rake-tasks/).

@@ -73,9 +73,9 @@ end
 
 Collection classes inherit from `Esse::Collection`, which is `Enumerable`.
 
-Implementing `each_batch_ids` is strongly recommended: it lets extensions like [esse-async_indexing](../../esse-async_indexing/docs/README.md) enqueue ID-only jobs efficiently.
+Implementing `each_batch_ids` is strongly recommended: it lets extensions like [esse-async_indexing](/esse-async_indexing/) enqueue ID-only jobs efficiently.
 
-See [Collection](collection.md) for details.
+See [Collection](/esse/collection/) for details.
 
 ## Document
 
@@ -125,7 +125,7 @@ The hash may include the following reserved keys:
 
 All other keys become the `_source` of the indexed document.
 
-See [Document](document.md) for all document variants.
+See [Document](/esse/document/) for all document variants.
 
 ## Lazy document attributes
 

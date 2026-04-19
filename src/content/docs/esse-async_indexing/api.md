@@ -183,7 +183,7 @@ Added via `Esse::CLI::Index`:
 - `esse index async_import`
 - `esse index async_update_lazy_attributes`
 
-See the [usage guide](usage.md) for options.
+See the [usage guide](/esse-async_indexing/usage/) for options.
 
 ---
 
@@ -200,4 +200,4 @@ See the [usage guide](usage.md) for options.
 
 - Built on top of the [`background_job`](https://github.com/marcosgz/background_job) gem, which abstracts Sidekiq and Faktory.
 - `esse-async_indexing` extends `Esse::Config` via module inclusion — the `async_indexing` reader is added automatically when you `require 'esse/async_indexing'`.
-- Callbacks register with the `Esse::ActiveRecord::Callbacks` registry (from [esse-active_record](../../esse-active_record/docs/README.md)), so `Esse::ActiveRecord::Hooks.without_indexing` also disables async callbacks.
+- Callbacks register with the `Esse::ActiveRecord::Callbacks` registry (from [esse-active_record](/esse-active_record/)), so `Esse::ActiveRecord::Hooks.without_indexing` also disables async callbacks.

@@ -10,15 +10,15 @@ Concurrent, adapter-based sitemap.xml generation for Ruby applications.
 
 ## Contents
 
-- [Getting started](getting-started.md) — install, first sitemap, Rails
-- [Processes](processes.md) — static and dynamic process DSL
-- [Adapters](adapters.md) — filesystem, S3, no-op, custom
-- [CLI](cli.md) — `site_maps generate`
-- [Rack middleware](middleware.md) — serve generated sitemaps from the app
-- [SEO extensions](extensions.md) — image, video, news, hreflang, mobile, PageMap
-- [Events](events.md) — instrumentation hooks
-- [Rails integration](rails.md) — URL helpers, Railtie, precompile
-- [API reference](api.md) — full public API
+- [Getting started](/site_maps/getting-started/) — install, first sitemap, Rails
+- [Processes](/site_maps/processes/) — static and dynamic process DSL
+- [Adapters](/site_maps/adapters/) — filesystem, S3, no-op, custom
+- [CLI](/site_maps/cli/) — `site_maps generate`
+- [Rack middleware](/site_maps/middleware/) — serve generated sitemaps from the app
+- [SEO extensions](/site_maps/extensions/) — image, video, news, hreflang, mobile, PageMap
+- [Events](/site_maps/events/) — instrumentation hooks
+- [Rails integration](/site_maps/rails/) — URL helpers, Railtie, precompile
+- [API reference](/site_maps/api/) — full public API
 
 ## Install
 

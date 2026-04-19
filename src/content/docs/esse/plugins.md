@@ -11,7 +11,7 @@ Plugins are the primary extension mechanism in Esse. They can:
 - Wrap or override existing behavior.
 - Add custom DSL methods.
 
-Official extensions ([esse-active_record](../../esse-active_record/docs/README.md), [esse-async_indexing](../../esse-async_indexing/docs/README.md), [esse-jbuilder](../../esse-jbuilder/docs/README.md), etc.) are all plugins.
+Official extensions ([esse-active_record](/esse-active_record/), [esse-async_indexing](/esse-async_indexing/), [esse-jbuilder](/esse-jbuilder/), etc.) are all plugins.
 
 ## Using plugins
 
@@ -121,7 +121,7 @@ UsersIndex.log_info
 
 ## Example: an ORM-style plugin
 
-This is a simplified version of what [esse-active_record](../../esse-active_record/docs/README.md) does:
+This is a simplified version of what [esse-active_record](/esse-active_record/) does:
 
 ```ruby
 module Esse::Plugins::MyORM
@@ -142,4 +142,4 @@ end
 
 ## Using existing extensions
 
-See [extensions.md](extensions.md) for the curated list. For each, `plugin :<name>` enables it — the rest is ORM-specific DSL documented in its own `docs/`.
+See [extensions.md](/esse/extensions/) for the curated list. For each, `plugin :<name>` enables it — the rest is ORM-specific DSL documented in its own `docs/`.

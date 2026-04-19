@@ -63,7 +63,7 @@ Esse.configure do |config|
 end
 ```
 
-Multiple clusters are supported — see [Configuration](configuration.md).
+Multiple clusters are supported — see [Configuration](/esse/configuration/).
 
 ## Generate an index class
 
@@ -146,12 +146,12 @@ response.results # array of hit hashes
 response.each { |hit| puts hit['_source']['name'] }
 ```
 
-See [Search](search.md) for the full DSL.
+See [Search](/esse/search/) for the full DSL.
 
 ## Next steps
 
-- Learn the [Index](index.md) DSL — settings, mappings, aliases, plugins.
-- Understand [Repositories](repository.md) — collections, serialization, lazy attributes.
-- Explore the [CLI](cli.md) — reset, import, create, update_aliases.
-- Hook into [Events](events.md) for observability.
-- Use an [ORM extension](extensions.md) like `esse-active_record` or `esse-sequel`.
+- Learn the [Index](/esse/esse-index/) DSL — settings, mappings, aliases, plugins.
+- Understand [Repositories](/esse/repository/) — collections, serialization, lazy attributes.
+- Explore the [CLI](/esse/cli/) — reset, import, create, update_aliases.
+- Hook into [Events](/esse/events/) for observability.
+- Use an [ORM extension](/esse/extensions/) like `esse-active_record` or `esse-sequel`.

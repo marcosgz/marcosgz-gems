@@ -4,7 +4,7 @@ slug: index
 order: -1
 project: esse-rails
 ---
-Rails integration for [Esse](../../esse/docs/README.md). Adds:
+Rails integration for [Esse](/esse/). Adds:
 
 - Controller-level instrumentation: "Search: X.Xms" appears alongside "Views" in your logs.
 - Lograge integration: a `search` key in your JSON logs.
@@ -12,8 +12,8 @@ Rails integration for [Esse](../../esse/docs/README.md). Adds:
 
 ## Contents
 
-- [Usage guide](usage.md)
-- [API reference](api.md)
+- [Usage guide](/esse-rails/usage/)
+- [API reference](/esse-rails/api/)
 
 ## What you see
 
@@ -39,7 +39,7 @@ gem 'esse'
 gem 'esse-rails'
 ```
 
-That's it. No initializer or DSL is required for controller instrumentation. For Lograge, add a single require (see [Usage](usage.md)).
+That's it. No initializer or DSL is required for controller instrumentation. For Lograge, add a single require (see [Usage](/esse-rails/usage/)).
 
 ## Version
 

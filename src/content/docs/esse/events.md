@@ -137,7 +137,7 @@ end
 
 ### Track search latency in Rails
 
-The [esse-rails](../../esse-rails/docs/README.md) gem already subscribes to every `elasticsearch.*` event and surfaces the accumulated runtime in your controller logs:
+The [esse-rails](/esse-rails/) gem already subscribes to every `elasticsearch.*` event and surfaces the accumulated runtime in your controller logs:
 
 ```
 Completed 200 OK in 125.3ms (Views: 45.2ms | Search: 78.1ms)

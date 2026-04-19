@@ -92,7 +92,7 @@ Returns a frozen hash of registered callbacks per reference.
 
 ## `Esse::Sequel::Hooks`
 
-Includes `Esse::Hooks[store_key: :esse_sequel_hooks]`. See [esse-hooks](../../esse-hooks/docs/README.md) for the full API. Methods include:
+Includes `Esse::Hooks[store_key: :esse_sequel_hooks]`. See [esse-hooks](/esse-hooks/) for the full API. Methods include:
 
 - `disable!` / `enable!` (global or per-repo).
 - `with_indexing` / `without_indexing` (scoped).

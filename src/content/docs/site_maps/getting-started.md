@@ -91,7 +91,7 @@ Run one:
 bundle exec site_maps generate posts --config-file config/sitemap.rb
 ```
 
-See [processes.md](processes.md) for the full process DSL including parameterized templates.
+See [processes.md](/site_maps/processes/) for the full process DSL including parameterized templates.
 
 ## Using it in Rails
 
@@ -113,7 +113,7 @@ SiteMaps.use(:file_system) do
 end
 ```
 
-See [rails.md](rails.md) for the full Rails integration, including asset precompile hooks and the Rack middleware for serving generated sitemaps.
+See [rails.md](/site_maps/rails/) for the full Rails integration, including asset precompile hooks and the Rack middleware for serving generated sitemaps.
 
 ## Uploading to S3
 
@@ -132,11 +132,11 @@ SiteMaps.use(:aws_sdk) do
 end
 ```
 
-See [adapters.md](adapters.md) for adapter specifics and how to build your own.
+See [adapters.md](/site_maps/adapters/) for adapter specifics and how to build your own.
 
 ## Next steps
 
-- [Processes](processes.md) — split your sitemap into static and dynamic shards
-- [SEO extensions](extensions.md) — image, video, news, hreflang
-- [CLI](cli.md) — automation-friendly generate command
-- [Rack middleware](middleware.md) — serve the generated files with correct headers
+- [Processes](/site_maps/processes/) — split your sitemap into static and dynamic shards
+- [SEO extensions](/site_maps/extensions/) — image, video, news, hreflang
+- [CLI](/site_maps/cli/) — automation-friendly generate command
+- [Rack middleware](/site_maps/middleware/) — serve the generated files with correct headers

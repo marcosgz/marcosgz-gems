@@ -214,7 +214,7 @@ UsersIndex.import(context: { start: 5001,  finish: 10000, batch_size: 500 })
 
 ## Async indexing
 
-The companion [esse-async_indexing](../../esse-async_indexing/docs/README.md) gem adds Sidekiq/Faktory-backed versions of all callbacks:
+The companion [esse-async_indexing](/esse-async_indexing/) gem adds Sidekiq/Faktory-backed versions of all callbacks:
 
 ```ruby
 require 'esse/async_indexing/active_record'

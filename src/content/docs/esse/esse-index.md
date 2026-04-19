@@ -124,7 +124,7 @@ class UsersIndex < Esse::Index
 end
 ```
 
-See [Repository](repository.md) for the full DSL.
+See [Repository](/esse/repository/) for the full DSL.
 
 Access:
 
@@ -144,7 +144,7 @@ class UsersIndex < Esse::Index
 end
 ```
 
-See [Plugins](plugins.md).
+See [Plugins](/esse/plugins/).
 
 ## Lifecycle methods
 
@@ -244,7 +244,7 @@ UsersIndex.import(
 )
 ```
 
-See [Import](import.md) for details.
+See [Import](/esse/import/) for details.
 
 ## Search
 
@@ -253,7 +253,7 @@ UsersIndex.search(q: 'john')
 UsersIndex.search(body: { query: { match: { name: 'john' } } })
 ```
 
-See [Search](search.md).
+See [Search](/esse/search/).
 
 ## Request customization
 

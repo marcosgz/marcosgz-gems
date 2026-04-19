@@ -165,4 +165,4 @@ Esse.logger = Logger.new($stdout)
 Esse.logger = nil # silent (File::NULL)
 ```
 
-See [Events](events.md) for richer observability.
+See [Events](/esse/events/) for richer observability.

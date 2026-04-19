@@ -4,7 +4,7 @@ slug: index
 order: -1
 project: esse-active_record
 ---
-ActiveRecord integration for [Esse](../../esse/docs/README.md). Provides:
+ActiveRecord integration for [Esse](/esse/). Provides:
 
 - `collection Model` DSL for repositories, backed by `find_in_batches`.
 - Automatic `after_commit` callbacks to index, update, or delete documents.
@@ -14,8 +14,8 @@ ActiveRecord integration for [Esse](../../esse/docs/README.md). Provides:
 
 ## Contents
 
-- [Usage guide](usage.md)
-- [API reference](api.md)
+- [Usage guide](/esse-active_record/usage/)
+- [API reference](/esse-active_record/api/)
 
 ## Quick start
 

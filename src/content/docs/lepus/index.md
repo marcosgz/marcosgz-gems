@@ -10,16 +10,16 @@ Think Sidekiq or SolidQueue, but on top of RabbitMQ rather than Redis or a datab
 
 ## Contents
 
-- [Getting started](getting-started.md) — install, define your first consumer and producer, run them
-- [Configuration](configuration.md) — the full `Lepus.configure` DSL
-- [Consumers](consumers.md) — queue bindings, lifecycle, result codes, retries
-- [Producers](producers.md) — exchanges, publishing, enable/disable hooks
-- [Middleware](middleware.md) — built-in middlewares and how to write your own
-- [CLI](cli.md) — `lepus start`, `lepus web`
-- [Supervisor](supervisor.md) — process model, signals, graceful shutdown
-- [Web dashboard](web.md) — the monitoring UI
-- [Testing](testing.md) — testing consumers and producers
-- [Rails integration](rails.md) — Railtie, executor wrapping, Puma plugin
+- [Getting started](/lepus/getting-started/) — install, define your first consumer and producer, run them
+- [Configuration](/lepus/configuration/) — the full `Lepus.configure` DSL
+- [Consumers](/lepus/consumers/) — queue bindings, lifecycle, result codes, retries
+- [Producers](/lepus/producers/) — exchanges, publishing, enable/disable hooks
+- [Middleware](/lepus/middleware/) — built-in middlewares and how to write your own
+- [CLI](/lepus/cli/) — `lepus start`, `lepus web`
+- [Supervisor](/lepus/supervisor/) — process model, signals, graceful shutdown
+- [Web dashboard](/lepus/web/) — the monitoring UI
+- [Testing](/lepus/testing/) — testing consumers and producers
+- [Rails integration](/lepus/rails/) — Railtie, executor wrapping, Puma plugin
 
 ## Install
 

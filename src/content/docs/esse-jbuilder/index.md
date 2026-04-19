@@ -4,12 +4,12 @@ slug: index
 order: -1
 project: esse-jbuilder
 ---
-Build Elasticsearch/OpenSearch search bodies with [Jbuilder](https://github.com/rails/jbuilder) instead of nested Ruby hashes. Plays nicely with [Esse](../../esse/docs/README.md) out of the box.
+Build Elasticsearch/OpenSearch search bodies with [Jbuilder](https://github.com/rails/jbuilder) instead of nested Ruby hashes. Plays nicely with [Esse](/esse/) out of the box.
 
 ## Contents
 
-- [Usage guide](usage.md)
-- [API reference](api.md)
+- [Usage guide](/esse-jbuilder/usage/)
+- [API reference](/esse-jbuilder/api/)
 
 ## What you get
 

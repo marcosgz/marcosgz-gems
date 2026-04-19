@@ -4,11 +4,11 @@ slug: extensions
 order: 21
 project: esse
 ---
-Esse is intentionally minimal. Framework and ORM integration, pagination, async indexing, and template engines are delivered as separate gems. Each extension is a plugin (see [Plugins](plugins.md)) and has its own `docs/` directory.
+Esse is intentionally minimal. Framework and ORM integration, pagination, async indexing, and template engines are delivered as separate gems. Each extension is a plugin (see [Plugins](/esse/plugins/)) and has its own `docs/` directory.
 
 ## ORM integrations
 
-### [esse-active_record](../../esse-active_record/docs/README.md)
+### [esse-active_record](/esse-active_record/)
 `gem 'esse-active_record'` — ActiveRecord support. Adds `collection Model` DSL, `scope`, `batch_context`, automatic after-commit callbacks, and hook-based disabling.
 
 ```ruby
@@ -29,14 +29,14 @@ class User < ApplicationRecord
 end
 ```
 
-### [esse-sequel](../../esse-sequel/docs/README.md)
+### [esse-sequel](/esse-sequel/)
 `gem 'esse-sequel'` — Sequel ORM support with an identical DSL to `esse-active_record`.
 
 ---
 
 ## Framework integration
 
-### [esse-rails](../../esse-rails/docs/README.md)
+### [esse-rails](/esse-rails/)
 `gem 'esse-rails'` — Rails-specific integration. Subscribes to all `elasticsearch.*` events and surfaces aggregate search latency in controller logs (and Lograge).
 
 ```
@@ -49,7 +49,7 @@ Also auto-loads the Rails environment when `esse` CLI runs in a Rails project.
 
 ## Async indexing
 
-### [esse-async_indexing](../../esse-async_indexing/docs/README.md)
+### [esse-async_indexing](/esse-async_indexing/)
 `gem 'esse-async_indexing'` — Offload indexing to Sidekiq or Faktory. Adds `async_indexing_job` DSL, CLI commands (`esse index async_import`), and ActiveRecord callbacks that enqueue jobs instead of indexing synchronously.
 
 ```ruby
@@ -63,7 +63,7 @@ end
 
 ## Hook management
 
-### [esse-hooks](../../esse-hooks/docs/README.md)
+### [esse-hooks](/esse-hooks/)
 `gem 'esse-hooks'` — The callback/state layer used by `esse-active_record` and `esse-sequel` to enable/disable indexing globally, per-repository, or per-model. Not used directly by end users most of the time; included here for completeness.
 
 ```ruby
@@ -74,7 +74,7 @@ Esse::ActiveRecord::Hooks.without_indexing { 10.times { User.create! } }
 
 ## Search query templates
 
-### [esse-jbuilder](../../esse-jbuilder/docs/README.md)
+### [esse-jbuilder](/esse-jbuilder/)
 `gem 'esse-jbuilder'` — Build search bodies with Jbuilder templates.
 
 ```ruby
@@ -96,7 +96,7 @@ UsersIndex.search(body: body)
 
 ## Pagination
 
-### [esse-kaminari](../../esse-kaminari/docs/README.md)
+### [esse-kaminari](/esse-kaminari/)
 `gem 'esse-kaminari'` — Kaminari integration. Adds `.page(n).per(x)` chainable on search queries.
 
 ```ruby
@@ -105,7 +105,7 @@ UsersIndex.search(body: body)
 <%= paginate @search.paginated_results %>
 ```
 
-### [esse-pagy](../../esse-pagy/docs/README.md)
+### [esse-pagy](/esse-pagy/)
 `gem 'esse-pagy'` — Pagy integration with controller helpers.
 
 ```ruby
@@ -128,7 +128,7 @@ Visit the [main project](https://github.com/marcosgz/esse) for the complete list
 
 ## Writing your own
 
-Any extension is just a plugin module (see [Plugins](plugins.md)). Package it as a gem if you want to share it. The contract is:
+Any extension is just a plugin module (see [Plugins](/esse/plugins/)). Package it as a gem if you want to share it. The contract is:
 
 - Define a module under `Esse::Plugins::YourName`.
 - Optionally add `apply(index, **opts, &block)`, `configure(index, ...)`.

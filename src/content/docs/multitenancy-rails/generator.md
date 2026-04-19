@@ -87,6 +87,6 @@ If a flag's gem isn't present, the generator skips that part silently — but th
 
 ## After generating
 
-1. Mount the theme in `config/routes/multitenancy.rb` (see [getting-started.md](getting-started.md)).
+1. Mount the theme in `config/routes/multitenancy.rb` (see [getting-started.md](/multitenancy-rails/getting-started/)).
 2. If you used `--tailwindcss`, run `bin/rails multitenancy:tailwindcss:build` once to generate the compiled CSS.
 3. If you used `--importmap`, pin any shared libraries in the theme's layout or in the main `config/importmap.rb`.

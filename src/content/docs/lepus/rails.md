@@ -111,7 +111,7 @@ authenticate :user, ->(u) { u.admin? } do
 end
 ```
 
-See [web.md](web.md).
+See [web.md](/lepus/web/).
 
 ## Testing
 
@@ -124,7 +124,7 @@ RSpec.configure do |config|
 end
 ```
 
-See [testing.md](testing.md).
+See [testing.md](/lepus/testing/).
 
 ## Active Record gotchas
 
@@ -154,7 +154,7 @@ Rails.error.subscribe do |exception, handled:, severity:, context:, source:|
 end
 ```
 
-Or use the `:honeybadger` middleware directly on your consumers — see [middleware.md](middleware.md).
+Or use the `:honeybadger` middleware directly on your consumers — see [middleware.md](/lepus/middleware/).
 
 ## Zeitwerk
 

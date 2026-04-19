@@ -62,7 +62,7 @@ Other special exceptions:
 - `Esse::Transport::ReadonlyClusterError` — raised when you attempt a write on a `cluster.readonly = true` cluster.
 - `Esse::Transport::BulkResponseError` — raised when the bulk response reports per-document errors. Access `error.response` and `error.items`.
 
-See [Errors](errors.md) for the full hierarchy.
+See [Errors](/esse/errors/) for the full hierarchy.
 
 ## Readonly clusters
 
@@ -108,7 +108,7 @@ end
 
 Payload shape is operation-specific but typically includes `:request`, `:response`, `:runtime`, and `:error` when raised.
 
-See [Events](events.md) for the full event list.
+See [Events](/esse/events/) for the full event list.
 
 ## Coercing exceptions
 

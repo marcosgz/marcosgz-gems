@@ -8,7 +8,7 @@ This gem is the state machinery behind `Esse::ActiveRecord::Hooks` and `Esse::Se
 
 ## For end users
 
-If you are using [esse-active_record](../../esse-active_record/docs/README.md) or [esse-sequel](../../esse-sequel/docs/README.md), use their hook modules:
+If you are using [esse-active_record](/esse-active_record/) or [esse-sequel](/esse-sequel/), use their hook modules:
 
 ```ruby
 Esse::ActiveRecord::Hooks.disable!

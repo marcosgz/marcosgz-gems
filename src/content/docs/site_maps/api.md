@@ -97,7 +97,7 @@ Yielded as `s` inside every `process` block.
 | `#add(path, **options)` | Add one URL to the current URL set. Automatically splits when full. |
 | `#finalize!` | Finalize the current URL set. Called automatically when the process block returns. |
 
-`options` supports every extension documented in [extensions.md](extensions.md): `lastmod`, `priority`, `changefreq`, `images`, `videos`, `news`, `alternates`, `mobile`, `pagemap`.
+`options` supports every extension documented in [extensions.md](/site_maps/extensions/): `lastmod`, `priority`, `changefreq`, `images`, `videos`, `news`, `alternates`, `mobile`, `pagemap`.
 
 In Rails apps, `s.route` is an object exposing all URL helpers.
 
@@ -105,7 +105,7 @@ In Rails apps, `s.route` is an object exposing all URL helpers.
 
 ## `SiteMaps::Middleware`
 
-Rack middleware for serving generated sitemaps. See [middleware.md](middleware.md).
+Rack middleware for serving generated sitemaps. See [middleware.md](/site_maps/middleware/).
 
 ```ruby
 use SiteMaps::Middleware,
@@ -126,7 +126,7 @@ use SiteMaps::Middleware,
 | `.unsubscribe(subscriber)` | Remove a subscription. |
 | `.instrument(event, payload) { ... }` | Emit an event, wrapping the block in a timer. |
 
-See [events.md](events.md) for the event catalog.
+See [events.md](/site_maps/events/) for the event catalog.
 
 ---
 
@@ -155,4 +155,4 @@ See [events.md](events.md) for the event catalog.
 bundle exec site_maps generate [processes] [options]
 ```
 
-See [cli.md](cli.md).
+See [cli.md](/site_maps/cli/).

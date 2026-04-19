@@ -4,14 +4,14 @@ slug: index
 order: -1
 project: esse-pagy
 ---
-[Pagy](https://github.com/ddnexus/pagy) pagination for [Esse](../../esse/docs/README.md) search queries.
+[Pagy](https://github.com/ddnexus/pagy) pagination for [Esse](/esse/) search queries.
 
 Unlike `esse-kaminari`, which adds chainable query methods, `esse-pagy` uses Pagy's **controller-backend** pattern: the index builds a delayed search description, and the `pagy_esse` controller helper executes it with pagination.
 
 ## Contents
 
-- [Usage guide](usage.md)
-- [API reference](api.md)
+- [Usage guide](/esse-pagy/usage/)
+- [API reference](/esse-pagy/api/)
 
 ## Install
 

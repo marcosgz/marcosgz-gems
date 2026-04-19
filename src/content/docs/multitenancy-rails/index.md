@@ -12,12 +12,12 @@ This gem does **not** handle database-level isolation (schemas, per-tenant datab
 
 ## Contents
 
-- [Getting started](getting-started.md) — install, generate a theme, mount it
-- [Themes](themes.md) — structure, namespaces, view resolution
-- [Generator](generator.md) — `bin/rails g multitenancy <name>` options
-- [Integrations](integrations.md) — importmap, Tailwind, RSpec, Minitest, FactoryBot
-- [Rake tasks](rake-tasks.md) — theme asset compilation
-- [API reference](api.md)
+- [Getting started](/multitenancy-rails/getting-started/) — install, generate a theme, mount it
+- [Themes](/multitenancy-rails/themes/) — structure, namespaces, view resolution
+- [Generator](/multitenancy-rails/generator/) — `bin/rails g multitenancy <name>` options
+- [Integrations](/multitenancy-rails/integrations/) — importmap, Tailwind, RSpec, Minitest, FactoryBot
+- [Rake tasks](/multitenancy-rails/rake-tasks/) — theme asset compilation
+- [API reference](/multitenancy-rails/api/)
 
 ## Install
 

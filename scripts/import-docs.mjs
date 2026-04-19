@@ -53,6 +53,58 @@ async function stripTopH1(source) {
   return source.replace(/^#\s+.+?\n+/, '');
 }
 
+// Rewrite inline markdown links from gem-relative `.md` paths to Astro routes.
+// - `foo.md` (same dir) → `/<slug>/foo/`
+// - `README.md` / `index.md` (same dir) → `/<slug>/`
+// - `index.md` in a project where README also exists → `/<slug>/esse-index/`
+// - `../../<gem>/docs/page.md` → `/<gem>/page/` (README → `/<gem>/`)
+// Preserves fragments (`#anchor`). External links (http, mailto, tel, #, /) are untouched.
+function rewriteMarkdownLinks(source, { slug, hasReadme }) {
+  return source.replace(/(\]\()([^)\s]+?)(\))/g, (match, open, url, close) => {
+    if (/^(https?:|mailto:|tel:|ftp:|#|\/)/i.test(url)) return match;
+
+    const hashIdx = url.indexOf('#');
+    let pathPart = hashIdx >= 0 ? url.slice(0, hashIdx) : url;
+    const fragment = hashIdx >= 0 ? url.slice(hashIdx) : '';
+
+    pathPart = pathPart.replace(/^\.\//, '');
+
+    let targetSlug;
+    let fileBase;
+
+    const crossGem = pathPart.match(/^\.\.\/\.\.\/([^/]+)\/docs\/(.+)$/);
+    if (crossGem) {
+      targetSlug = crossGem[1];
+      const rest = crossGem[2];
+      if (!rest.endsWith('.md')) return match;
+      fileBase = rest.slice(0, -3);
+    } else if (pathPart.endsWith('.md') && !pathPart.includes('/')) {
+      targetSlug = slug;
+      fileBase = pathPart.slice(0, -3);
+    } else {
+      return match;
+    }
+
+    const isCrossGem = Boolean(crossGem);
+    const targetHasReadme = isCrossGem ? true : hasReadme;
+
+    let targetUrl;
+    if (fileBase === 'README') {
+      targetUrl = `/${targetSlug}/`;
+    } else if (fileBase === 'index' && targetHasReadme) {
+      // README wins the index slot, and the source index.md was renamed to esse-index.md
+      // (see processProject's collision handling).
+      targetUrl = `/${targetSlug}/esse-index/`;
+    } else if (fileBase === 'index') {
+      targetUrl = `/${targetSlug}/`;
+    } else {
+      targetUrl = `/${targetSlug}/${fileBase}/`;
+    }
+
+    return `${open}${targetUrl}${fragment}${close}`;
+  });
+}
+
 function yamlEscape(value) {
   if (/[:#'"\\]/.test(value) || value.startsWith('-')) {
     return `"${value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
@@ -109,7 +161,8 @@ async function processProject({ slug, gem, order }) {
 
     const raw = await fs.readFile(absSrc, 'utf8');
     const title = (await firstH1(raw)) || base;
-    const body = await stripTopH1(raw);
+    const stripped = await stripTopH1(raw);
+    const body = rewriteMarkdownLinks(stripped, { slug, hasReadme });
 
     // README always sorts first; other pages use the preferred page order.
     const weight = isReadme ? -1 : orderOf(base);

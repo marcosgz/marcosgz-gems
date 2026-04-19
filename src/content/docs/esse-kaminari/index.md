@@ -4,12 +4,12 @@ slug: index
 order: -1
 project: esse-kaminari
 ---
-[Kaminari](https://github.com/kaminari/kaminari) pagination for [Esse](../../esse/docs/README.md) search queries.
+[Kaminari](https://github.com/kaminari/kaminari) pagination for [Esse](/esse/) search queries.
 
 ## Contents
 
-- [Usage guide](usage.md)
-- [API reference](api.md)
+- [Usage guide](/esse-kaminari/usage/)
+- [API reference](/esse-kaminari/api/)
 
 ## Install
 

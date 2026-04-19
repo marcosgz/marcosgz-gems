@@ -71,9 +71,9 @@ MyCollection.new(batch_size: 500, active: true)
 
 ## Why `each_batch_ids` matters
 
-Extensions like [esse-async_indexing](../../esse-async_indexing/docs/README.md) rely on this method to enqueue ID-only jobs that don't hold raw record payloads in memory. If your repository only defines `each`, async indexing won't be able to kick off import jobs from the CLI.
+Extensions like [esse-async_indexing](/esse-async_indexing/) rely on this method to enqueue ID-only jobs that don't hold raw record payloads in memory. If your repository only defines `each`, async indexing won't be able to kick off import jobs from the CLI.
 
-If you use [esse-active_record](../../esse-active_record/docs/README.md) or [esse-sequel](../../esse-sequel/docs/README.md) the plugin provides both methods for you:
+If you use [esse-active_record](/esse-active_record/) or [esse-sequel](/esse-sequel/) the plugin provides both methods for you:
 
 ```ruby
 collection ::User # ActiveRecord — both each and each_batch_ids available
@@ -124,8 +124,8 @@ This "batch context" pattern is the recommended way to avoid N+1 lookups inside 
 
 The ORM extensions turn common patterns into DSL:
 
-- [esse-active_record](../../esse-active_record/docs/README.md) adds `collection Model` with `scope` / `batch_context` / `connect_with`.
-- [esse-sequel](../../esse-sequel/docs/README.md) provides an identical DSL for Sequel.
+- [esse-active_record](/esse-active_record/) adds `collection Model` with `scope` / `batch_context` / `connect_with`.
+- [esse-sequel](/esse-sequel/) provides an identical DSL for Sequel.
 
 ```ruby
 collection ::User, batch_size: 500 do

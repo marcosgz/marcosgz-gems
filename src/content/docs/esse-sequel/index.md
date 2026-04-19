@@ -4,12 +4,12 @@ slug: index
 order: -1
 project: esse-sequel
 ---
-Sequel ORM integration for [Esse](../../esse/docs/README.md). The API mirrors [esse-active_record](../../esse-active_record/docs/README.md) — if you know one, you know the other.
+Sequel ORM integration for [Esse](/esse/). The API mirrors [esse-active_record](/esse-active_record/) — if you know one, you know the other.
 
 ## Contents
 
-- [Usage guide](usage.md)
-- [API reference](api.md)
+- [Usage guide](/esse-sequel/usage/)
+- [API reference](/esse-sequel/api/)
 
 ## What you get
 

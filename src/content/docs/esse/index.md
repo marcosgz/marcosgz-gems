@@ -14,34 +14,34 @@ It is built on top of the official [`elasticsearch-ruby`](https://github.com/ela
 
 | Guide | Description |
 |-------|-------------|
-| [Getting Started](getting-started.md) | Installation, configuration and your first index |
-| [Configuration](configuration.md) | Global config and cluster management |
-| [Index](index.md) | Defining indices, settings, mappings, lifecycle |
-| [Repository](repository.md) | Data loading through collections and documents |
-| [Document](document.md) | Document classes and variants |
-| [Collection](collection.md) | Iterating over data sources |
-| [Search](search.md) | Query DSL, response wrapping, scrolls |
-| [Import](import.md) | Bulk import pipeline, retries, batching |
-| [Transport](transport.md) | Low-level ES/OS client wrapper |
-| [Events](events.md) | Pub/sub and instrumentation |
-| [Plugins](plugins.md) | Plugin system and how to write custom plugins |
-| [CLI](cli.md) | `esse` command-line reference |
-| [Errors](errors.md) | Exception hierarchy |
+| [Getting Started](/esse/getting-started/) | Installation, configuration and your first index |
+| [Configuration](/esse/configuration/) | Global config and cluster management |
+| [Index](/esse/esse-index/) | Defining indices, settings, mappings, lifecycle |
+| [Repository](/esse/repository/) | Data loading through collections and documents |
+| [Document](/esse/document/) | Document classes and variants |
+| [Collection](/esse/collection/) | Iterating over data sources |
+| [Search](/esse/search/) | Query DSL, response wrapping, scrolls |
+| [Import](/esse/import/) | Bulk import pipeline, retries, batching |
+| [Transport](/esse/transport/) | Low-level ES/OS client wrapper |
+| [Events](/esse/events/) | Pub/sub and instrumentation |
+| [Plugins](/esse/plugins/) | Plugin system and how to write custom plugins |
+| [CLI](/esse/cli/) | `esse` command-line reference |
+| [Errors](/esse/errors/) | Exception hierarchy |
 
 ### Ecosystem
 
 | Extension | Purpose |
 |-----------|---------|
-| [esse-active_record](../../esse-active_record/docs/README.md) | ActiveRecord integration |
-| [esse-sequel](../../esse-sequel/docs/README.md) | Sequel ORM integration |
-| [esse-rails](../../esse-rails/docs/README.md) | Rails instrumentation |
-| [esse-async_indexing](../../esse-async_indexing/docs/README.md) | Background indexing (Sidekiq/Faktory) |
-| [esse-hooks](../../esse-hooks/docs/README.md) | Hook/callback state management |
-| [esse-jbuilder](../../esse-jbuilder/docs/README.md) | Jbuilder-based search templates |
-| [esse-kaminari](../../esse-kaminari/docs/README.md) | Kaminari pagination |
-| [esse-pagy](../../esse-pagy/docs/README.md) | Pagy pagination |
+| [esse-active_record](/esse-active_record/) | ActiveRecord integration |
+| [esse-sequel](/esse-sequel/) | Sequel ORM integration |
+| [esse-rails](/esse-rails/) | Rails instrumentation |
+| [esse-async_indexing](/esse-async_indexing/) | Background indexing (Sidekiq/Faktory) |
+| [esse-hooks](/esse-hooks/) | Hook/callback state management |
+| [esse-jbuilder](/esse-jbuilder/) | Jbuilder-based search templates |
+| [esse-kaminari](/esse-kaminari/) | Kaminari pagination |
+| [esse-pagy](/esse-pagy/) | Pagy pagination |
 
-See [extensions.md](extensions.md) for the complete list.
+See [extensions.md](/esse/extensions/) for the complete list.
 
 ## Architecture Overview
 

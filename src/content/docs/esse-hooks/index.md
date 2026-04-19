@@ -4,14 +4,14 @@ slug: index
 order: -1
 project: esse-hooks
 ---
-A small state-management layer for enabling, disabling, and scoping indexing callbacks across [Esse](../../esse/docs/README.md) plugins. Used internally by [esse-active_record](../../esse-active_record/docs/README.md) and [esse-sequel](../../esse-sequel/docs/README.md).
+A small state-management layer for enabling, disabling, and scoping indexing callbacks across [Esse](/esse/) plugins. Used internally by [esse-active_record](/esse-active_record/) and [esse-sequel](/esse-sequel/).
 
 You usually don't call this gem directly — you interact through the plugin-specific modules (`Esse::ActiveRecord::Hooks`, `Esse::Sequel::Hooks`). But if you are building your own plugin and need a consistent hook layer, this is how.
 
 ## Contents
 
-- [Usage guide](usage.md)
-- [API reference](api.md)
+- [Usage guide](/esse-hooks/usage/)
+- [API reference](/esse-hooks/api/)
 
 ## What it provides
 

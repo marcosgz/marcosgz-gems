@@ -63,8 +63,8 @@ query.results           # alias for response.hits
 
 Esse ships without a built-in pagination wrapper. Use:
 
-- [esse-kaminari](../../esse-kaminari/docs/README.md) for Kaminari-style `.page(n).per(x)`.
-- [esse-pagy](../../esse-pagy/docs/README.md) for Pagy-style controller helpers.
+- [esse-kaminari](/esse-kaminari/) for Kaminari-style `.page(n).per(x)`.
+- [esse-pagy](/esse-pagy/) for Pagy-style controller helpers.
 
 Or use `.limit(size)` / `.offset(from)` directly.
 
@@ -165,7 +165,7 @@ search.response.each { |hit| puts hit.dig('_source', 'name') }
 
 ## Integration with Jbuilder
 
-For complex query bodies, [esse-jbuilder](../../esse-jbuilder/docs/README.md) lets you build the body from a Jbuilder template:
+For complex query bodies, [esse-jbuilder](/esse-jbuilder/) lets you build the body from a Jbuilder template:
 
 ```ruby
 UsersIndex.search do |json|

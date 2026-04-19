@@ -31,7 +31,7 @@ Lepus.configure do |config|
 end
 ```
 
-See [configuration.md](configuration.md) for the full DSL.
+See [configuration.md](/lepus/configuration/) for the full DSL.
 
 ## Define a consumer
 
@@ -105,7 +105,7 @@ bundle exec lepus start OrdersConsumer PaymentsConsumer \
   --debug
 ```
 
-See [cli.md](cli.md).
+See [cli.md](/lepus/cli/).
 
 ### As a long-running service
 
@@ -129,12 +129,12 @@ bundle exec lepus start   # with no class args, starts all consumers from consum
 bundle exec lepus web --port 9292
 ```
 
-Visit http://localhost:9292 to see consumer status, throughput, and recent activity. See [web.md](web.md).
+Visit http://localhost:9292 to see consumer status, throughput, and recent activity. See [web.md](/lepus/web/).
 
 ## Next steps
 
-- [Consumers](consumers.md) — full consumer DSL, retries, error handling
-- [Producers](producers.md) — exchange config, publishing options, hooks
-- [Middleware](middleware.md) — built-in middlewares and writing your own
-- [Supervisor](supervisor.md) — process model, graceful shutdown, worker pools
-- [Rails integration](rails.md) — Railtie, executor wrapping
+- [Consumers](/lepus/consumers/) — full consumer DSL, retries, error handling
+- [Producers](/lepus/producers/) — exchange config, publishing options, hooks
+- [Middleware](/lepus/middleware/) — built-in middlewares and writing your own
+- [Supervisor](/lepus/supervisor/) — process model, graceful shutdown, worker pools
+- [Rails integration](/lepus/rails/) — Railtie, executor wrapping

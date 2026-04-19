@@ -94,7 +94,7 @@ Internally this is:
 3. `update_aliases(suffix: '20240401')` — point `users` alias at new index.
 4. Delete the previous concrete index.
 
-See [Index](index.md#reset-zero-downtime) for details.
+See [Index](/esse/esse-index/#reset-zero-downtime) for details.
 
 ## Lazy attributes during import
 
@@ -129,7 +129,7 @@ rescue Esse::Transport::BulkResponseError => e
 end
 ```
 
-See [Errors](errors.md) for the full exception hierarchy.
+See [Errors](/esse/errors/) for the full exception hierarchy.
 
 ## Events
 
@@ -141,7 +141,7 @@ Esse::Events.subscribe('elasticsearch.bulk') do |event|
 end
 ```
 
-See [Events](events.md).
+See [Events](/esse/events/).
 
 ## CLI reference
 
@@ -154,4 +154,4 @@ bundle exec esse index import UsersIndex \
   --update_lazy_attributes comment_count
 ```
 
-See [CLI](cli.md) for the full command reference.
+See [CLI](/esse/cli/) for the full command reference.

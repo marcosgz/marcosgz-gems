@@ -180,7 +180,7 @@ Esse::Sequel::Hooks.enable!
 
 ## Async indexing
 
-Install [esse-async_indexing](../../esse-async_indexing/docs/README.md) and use the Sequel integration:
+Install [esse-async_indexing](/esse-async_indexing/) and use the Sequel integration:
 
 ```ruby
 require 'esse/async_indexing/sequel'

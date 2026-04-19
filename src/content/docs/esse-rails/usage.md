@@ -72,7 +72,7 @@ The gem subscribes to every event matching `/^elasticsearch/`, which includes:
 - `elasticsearch.bulk`, `elasticsearch.index`, `elasticsearch.update`, `elasticsearch.delete`
 - `elasticsearch.get`, `elasticsearch.mget`, `elasticsearch.count`, `elasticsearch.exist`
 - `elasticsearch.create_index`, `elasticsearch.delete_index`, `elasticsearch.refresh`
-- And others — see [Events](../../esse/docs/events.md).
+- And others — see [Events](/esse/events/).
 
 The runtime of each event is added to `RuntimeRegistry.runtime`. The registry is reset per-action, so the number shown is the sum of time spent in ES/OS during that controller action.
 

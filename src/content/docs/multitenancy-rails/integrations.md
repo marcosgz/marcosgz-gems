@@ -62,7 +62,7 @@ bin/rails multitenancy:tailwindcss:watch
 
 Forks a watcher process per theme, traps `Ctrl-C` to clean up children.
 
-See [rake-tasks.md](rake-tasks.md) for task details.
+See [rake-tasks.md](/multitenancy-rails/rake-tasks/) for task details.
 
 ## RSpec (`rspec-rails`)
 

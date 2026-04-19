@@ -148,7 +148,7 @@ User.esse_callbacks
 
 ## `Esse::ActiveRecord::Hooks`
 
-Global state for enabling/disabling indexing callbacks. Uses [esse-hooks](../../esse-hooks/docs/README.md) under the hood.
+Global state for enabling/disabling indexing callbacks. Uses [esse-hooks](/esse-hooks/) under the hood.
 
 ### `disable!` / `enable!`
 
