@@ -70,6 +70,15 @@ function rewriteMarkdownLinks(source, { slug, hasReadme }) {
 
     pathPart = pathPart.replace(/^\.\//, '');
 
+    // Same-dir image reference (`images/file.png`) — the import script already
+    // mirrors docs/images/ into public/images/<slug>/, so rewrite to the
+    // absolute Astro URL. Keep the check BEFORE the `.md` branches since
+    // images don't end in `.md`.
+    const imageMatch = pathPart.match(/^images\/(.+)$/);
+    if (imageMatch && !pathPart.endsWith('.md')) {
+      return `${open}/images/${slug}/${imageMatch[1]}${fragment}${close}`;
+    }
+
     let targetSlug;
     let fileBase;
 
