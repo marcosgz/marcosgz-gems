@@ -26,11 +26,20 @@ Chainable DSL for describing the expected request and its response.
 
 #### `#with(definition)` → `self`
 
-Merge additional keyword arguments into the expected call signature. Keys are coerced to symbols. Values accept any RSpec argument matcher.
+Describe the expected call signature. Accepts either:
+
+- a **Hash** — merged into the existing `@definition` (keys coerced to symbols). Values can be literals or any composable RSpec matcher.
+- a **single RSpec argument matcher** (e.g. `hash_including(...)`) — replaces `@definition` wholesale and is forwarded to `receive(...).with(matcher)`.
 
 ```ruby
+# Hash form — merged, keys symbolized
 .with(index: 'products', body: a_hash_including(query: a_hash_including(:match_all)))
+
+# Matcher form — replaces the entire definition
+.with(hash_including(_source: false, body: hash_including('aggregations' => anything)))
 ```
+
+When the expectation target is an `Esse::Index` subclass, the matcher auto-injects `index: [...]` into `@definition` — but **only** when `@definition` is still a Hash without an `:index` key. If you pass an RSpec argument matcher to `.with(...)`, the auto-injection is skipped; include `index:` explicitly in the matcher if you need to assert on it.
 
 #### `#and_return(response)` → `self`
 
@@ -72,7 +81,7 @@ All chainable; the last one wins.
 Called by RSpec. Accepts:
 
 - an `Esse::Cluster` instance — used as-is
-- an `Esse::Index` subclass — resolves the cluster via `index.cluster` and injects `index: [...]` into the expected arguments
+- an `Esse::Index` subclass — resolves the cluster via `index.cluster`. If `@definition` is still a Hash without an `:index` key, injects `index: [...]` derived from the class; if `@definition` was replaced by an RSpec argument matcher, no injection is performed.
 - a `Symbol` or `String` naming a configured cluster (see `Esse.config.cluster_ids`)
 
 Anything else raises `ArgumentError`.

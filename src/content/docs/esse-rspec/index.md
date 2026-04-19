@@ -44,7 +44,7 @@ end
 
 ## Version
 
-- Version: **0.0.6**
+- Version: **0.0.7**
 - Ruby: `>= 2.5.0`
 - Depends on: `esse >= 0.2.4`, `rspec >= 3`
 

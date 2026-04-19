@@ -37,6 +37,31 @@ query.response.total # => 0
 
 When the target is an `Esse::Index` subclass, the matcher auto-injects `index: [...]` into the expected arguments using `Esse::Search::Query.normalize_indices`, so you only need to declare the `body` (and any other params you want to assert on).
 
+### Loose matching with RSpec argument matchers
+
+`.with(...)` also accepts any single RSpec argument matcher instead of a literal Hash — useful when you care about a subset of the request:
+
+```ruby
+expect(PostsIndex).to esse_receive_request(:search)
+  .with(
+    hash_including(
+      _source: false,
+      body: hash_including('aggregations' => anything),
+    ),
+  )
+  .and_return('aggregations' => { 'tags' => { 'buckets' => [] } })
+```
+
+This asserts that `_source: false` and a `body` containing an `aggregations` key are present, without constraining the rest of the payload. You can mix and match any composable matcher — `hash_including`, `a_hash_including`, `array_including`, `an_instance_of`, `anything`, `match(/.../)`, etc.
+
+Note: when you pass a matcher object to `.with(...)`, the index auto-injection is skipped — the matcher becomes the whole expectation. If you need to assert on the target index alongside the matcher, include it explicitly:
+
+```ruby
+expect(PostsIndex).to esse_receive_request(:search)
+  .with(hash_including(index: ['posts'], body: hash_including('aggregations' => anything)))
+  .and_return(...)
+```
+
 ### Raise an HTTP status error
 
 ```ruby
@@ -153,11 +178,9 @@ RSpec.configure { |c| c.include IndexStubs }
 
 ```ruby
 expect(ProductsIndex).to esse_receive_request(:bulk)
-  .with(a_hash_including(body: array_including(an_instance_of(Hash))))
+  .with(hash_including(body: array_including(an_instance_of(Hash))))
   .and_return('errors' => false, 'items' => [])
 ```
-
-The `.with(...)` matcher accepts any RSpec argument matcher — `a_hash_including`, `array_including`, `an_instance_of`, etc.
 
 ### Legacy `stub_esse_search`
 
