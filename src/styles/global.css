@@ -607,8 +607,8 @@ code, kbd, pre { font-family: var(--font-code); }
 code, pre, .expressive-code { font-variant-ligatures: none; }
 .prose td code { white-space: nowrap; }
 
-.wordmark { display: inline-block; vertical-align: middle; line-height: 0; }
-.wordmark__img { display: block; width: auto; height: 100%; max-width: 100%; }
+.wordmark { display: inline-block; vertical-align: middle; line-height: 0; max-width: 100%; }
+.wordmark__img { display: block; width: auto; height: 100%; max-width: 100%; object-fit: contain; object-position: left center; }
 .wordmark__img--dark { display: none; }
 [data-theme='dark'] .wordmark__img--light { display: none; }
 [data-theme='dark'] .wordmark__img--dark { display: block; }

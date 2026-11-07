@@ -90,6 +90,8 @@ export const projects: Project[] = [
     displayName: 'SiteMaps',
     tagline:
       'Concurrent, incremental sitemap generation with image, video, news and hreflang extensions.',
+    logo: 'mark:sitemaps',
+    wordmark: { light: '/logos/site_maps-light.svg', dark: '/logos/site_maps-dark.svg', width: 387, height: 90 },
     repo: gh('site_maps'),
     source: `${gh('site_maps')}/tree/main/docs`,
     install: 'gem "site_maps"',
@@ -103,6 +105,8 @@ export const projects: Project[] = [
     displayName: 'Multitenancy for Rails',
     tagline:
       'White-label Rails apps: each host resolves to a site, each site to a theme with its own views, routes and assets.',
+    logo: 'mark:multitenancy',
+    wordmark: { light: '/logos/multitenancy-rails-light.svg', dark: '/logos/multitenancy-rails-dark.svg', width: 666, height: 90 },
     repo: gh('multitenancy-rails'),
     source: `${gh('multitenancy-rails')}/tree/main/docs`,
     install: 'gem "multitenancy-rails"',
@@ -183,6 +187,8 @@ export const projects: Project[] = [
     displayName: 'Multitenancy for Phoenix',
     tagline:
       'Serve many sites from one Phoenix app: each host resolves to a site, each site to a theme with its own router, templates, LiveViews and assets.',
+    logo: 'mark:multitenancy',
+    wordmark: { light: '/logos/multitenancy_phoenix-light.svg', dark: '/logos/multitenancy_phoenix-dark.svg', width: 732, height: 90 },
     repo: gh('multitenancy_phoenix'),
     source: gh('multitenancy_phoenix'),
     install: '{:multitenancy_phoenix, "~> 0.2"}',
@@ -196,6 +202,8 @@ export const projects: Project[] = [
     displayName: 'SiteMaps',
     tagline:
       'Sitemaps streamed to disk, S3 or R2: parallel processes, incremental shards, every protocol extension, and one module for many sites.',
+    logo: 'mark:sitemaps',
+    wordmark: { light: '/logos/site_maps-light.svg', dark: '/logos/site_maps-dark.svg', width: 387, height: 90 },
     repo: gh('site_maps_ex'),
     source: gh('site_maps_ex'),
     install: '{:site_maps, "~> 0.1"}',
