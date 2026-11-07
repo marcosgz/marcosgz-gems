@@ -1,0 +1,26 @@
+---
+import { languages, projectsFor, type Lang } from '../data/projects';
+
+interface Props {
+  lang: Lang;
+  /** Heading level: the band names the page on a language page. */
+  as?: 'h1' | 'h2';
+  link?: boolean;
+}
+const { lang, as: Tag = 'h2', link = false } = Astro.props as Props;
+const language = languages[lang];
+const count = projectsFor(lang).length;
+const glyph = lang === 'ruby' ? '#{}' : '|>';
+const unit = lang === 'ruby' ? (count === 1 ? 'gem' : 'gems') : count === 1 ? 'package' : 'packages';
+---
+
+<div class="band">
+  <span class="band__glyph" aria-hidden="true">{glyph}</span>
+  <Tag>
+    {link ? <a class="band__name" href={`/${lang}/`}>{language.name}</a> : <span class="band__name">{language.name}</span>}
+  </Tag>
+  <div class="band__meta">
+    <p>{language.blurb}</p>
+    <span class="band__count">{count} {unit} on {language.registry}</span>
+  </div>
+</div>

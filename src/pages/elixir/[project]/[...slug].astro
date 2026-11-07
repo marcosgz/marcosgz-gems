@@ -1,0 +1,16 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import { docPaths } from '../../../data/docs';
+
+export async function getStaticPaths() {
+  return docPaths('elixir');
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<'docs'> };
+const { Content, headings } = await render(entry);
+---
+
+<DocsLayout project={entry.data.project} title={entry.data.title} slug={entry.data.slug} headings={headings}>
+  <Content />
+</DocsLayout>

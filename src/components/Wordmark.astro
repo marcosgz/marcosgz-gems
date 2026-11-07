@@ -1,0 +1,14 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props as Props;
+const { light, dark, width, height } = project.wordmark!;
+---
+
+<span class="wordmark">
+  <img class:list={['wordmark__img', dark && 'wordmark__img--light']} src={light} alt={project.displayName} width={width} height={height} />
+  {dark && <img class="wordmark__img wordmark__img--dark" src={dark} alt="" width={width} height={height} />}
+</span>

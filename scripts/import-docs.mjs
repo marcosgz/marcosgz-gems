@@ -12,6 +12,13 @@ const gemsRoot = path.resolve(process.env.HOME, 'workspace', 'gems');
 const contentRoot = path.join(projectRoot, 'src', 'content', 'docs');
 const publicImagesRoot = path.join(projectRoot, 'public', 'images');
 
+const mixRoot = path.resolve(process.env.HOME, 'workspace', 'mix_ex');
+
+// Elixir pages are written for Phoenix developers: drop the lines that compare
+// a library with its Ruby sibling.
+const dropSection = (heading) => (source) =>
+  source.replace(new RegExp(`\\n## ${heading}\\n[\\s\\S]*?(?=\\n## )`), '\n');
+
 const projects = [
   { slug: 'esse', gem: 'esse', order: 10 },
   { slug: 'lepus', gem: 'lepus', order: 20 },
@@ -27,7 +34,49 @@ const projects = [
   { slug: 'esse-pagy', gem: 'esse-pagy', order: 110 },
   { slug: 'esse-rspec', gem: 'esse-rspec', order: 120 },
   { slug: 'esse-will_paginate', gem: 'esse-will_paginate', order: 130 },
+  ...['lepus-saga', 'lepus-saga-active_record', 'lepus-saga-sequel'].map((gem) => ({
+    slug: gem,
+    readme: path.join(gemsRoot, gem),
+    title: 'Overview',
+    repo: `https://github.com/marcosgz/${gem}`,
+    branch: 'master',
+  })),
+  {
+    slug: 'elixir-multitenancy_phoenix',
+    readme: path.join(mixRoot, 'multitenancy_phoenix'),
+    title: 'Overview',
+    repo: 'https://github.com/marcosgz/multitenancy_phoenix',
+    branch: 'master',
+    transform: (source) =>
+      source
+        .replace(/: the Elixir counterpart of\s*\n\[multitenancy-rails\]\([^)]*\)\./, '.')
+        .replace(/\n\| multitenancy-rails[^\n]*\n(?:\|[^\n]*\n)+/, '\n')
+        .replace(/ the same way a Rails fallback view renders inside the theme layout\./, ' inside the theme layout.'),
+  },
+  {
+    slug: 'elixir-site_maps',
+    readme: path.join(mixRoot, 'site_maps'),
+    title: 'Overview',
+    repo: 'https://github.com/marcosgz/site_maps_ex',
+    branch: 'master',
+    transform: (source) =>
+      dropSection('Coming from the Ruby gem')(
+        source.replace(/ It is the Elixir port of the\s*\n\[site_maps\]\([^)]*\) Ruby gem\./, ''),
+      ),
+  },
 ];
+
+// Site routes for the GitHub repos of imported projects, so README links stay on the site.
+const siteRoutes = {
+  'https://github.com/marcosgz/lepus': '/lepus/',
+  'https://github.com/marcosgz/lepus-saga': '/lepus-saga/',
+  'https://github.com/marcosgz/lepus-saga-active_record': '/lepus-saga-active_record/',
+  'https://github.com/marcosgz/lepus-saga-sequel': '/lepus-saga-sequel/',
+  'https://github.com/marcosgz/multitenancy_phoenix': '/elixir/multitenancy_phoenix/',
+  'https://github.com/marcosgz/site_maps_ex': '/elixir/site_maps/',
+};
+
+const RUBY_HINT = /\b(ruby|rails|gem)\b/i;
 
 // Preferred page order within a project.
 const pageOrder = [
@@ -217,12 +266,44 @@ async function processProject({ slug, gem, order }) {
   return count;
 }
 
-async function main() {
-  let total = 0;
-  for (const project of projects) {
-    total += await processProject(project);
+// Projects documented by their README alone: it becomes the project's index
+// page, the centred brand header is dropped (the site draws its own), and
+// relative links point at the repository.
+async function processReadme({ slug, readme, title, repo, branch, transform = (s) => s }) {
+  const raw = await fs.readFile(path.join(readme, 'README.md'), 'utf8');
+  const dst = path.join(contentRoot, slug);
+  await fs.mkdir(dst, { recursive: true });
+
+  let body = raw
+    .replace(/^<h1[\s\S]*?<\/h1>\s*/, '')
+    .replace(/^<p align="center">.*<\/p>\s*/m, '')
+    .replace(/^#\s+.+?\n+/, '');
+  body = transform(body);
+  body = body.replace(/(\]\()([^)\s]+?)(\))/g, (match, open, url, close) => {
+    if (siteRoutes[url]) return `${open}${siteRoutes[url]}${close}`;
+    if (/^(https?:|mailto:|tel:|#|\/)/i.test(url)) return match;
+    return `${open}${repo}/blob/${branch}/${url.replace(/^\.\//, '')}${close}`;
+  });
+
+  if (slug.startsWith('elixir-') && RUBY_HINT.test(body)) {
+    const lines = body.split('\n').filter((line) => RUBY_HINT.test(line));
+    console.warn(`[check] ${slug} still mentions Ruby:\n  ${lines.join('\n  ')}`);
   }
-  console.log(`\nimported ${total} pages across ${projects.length} projects.`);
+
+  const frontmatter = ['---', `title: ${yamlEscape(title)}`, 'slug: index', 'order: -1', `project: ${slug}`, '---', ''].join('\n');
+  await fs.writeFile(path.join(dst, 'index.md'), frontmatter + body);
+  console.log(`[ok] ${slug}: README`);
+  return 1;
+}
+
+async function main() {
+  const only = process.argv.slice(2);
+  const selected = only.length ? projects.filter((p) => only.includes(p.slug)) : projects;
+  let total = 0;
+  for (const project of selected) {
+    total += await (project.readme ? processReadme(project) : processProject(project));
+  }
+  console.log(`\nimported ${total} pages across ${selected.length} projects.`);
 }
 
 main().catch((e) => {

@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Band from './Band.astro';
+import Family from './Family.astro';
+import { familiesFor, languages, type Lang } from '../data/projects';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props as Props;
+const language = languages[lang];
+---
+
+<BaseLayout title={`${language.name} libraries`} description={language.blurb} lang={lang} langIndex>
+  <div class="wrap">
+    <div class="lang-hero lang">
+      <Band lang={lang} as="h1" />
+    </div>
+    {familiesFor(lang).map(({ lead, members }) => <Family lead={lead} members={members} />)}
+  </div>
+</BaseLayout>
