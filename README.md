@@ -1,16 +1,17 @@
 # marcosgz · projects
 
-Documentation site for the open-source Ruby gems maintained by
+Documentation site for the open-source Ruby and Elixir libraries maintained by
 [@marcosgz](https://github.com/marcosgz). Built with [Astro](https://astro.build),
 deployed to Cloudflare Pages at <https://gems.marcosz.com.br>.
 
-Covers:
+The site is split by language. Each language has its own colour and index page:
 
-- **Esse** — Elasticsearch/OpenSearch toolkit for Ruby
-- **Lepus** — RabbitMQ producer/consumer framework
-- **SiteMaps** — concurrent sitemap.xml generation
-- The full **Esse ecosystem** (ActiveRecord, Rails, Sequel, Sidekiq, Jbuilder,
-  Kaminari, Pagy, Hooks, Async Indexing)
+- **Ruby** (`/ruby/`, projects at `/<slug>/`): Esse and its extensions, Lepus and
+  Lepus Saga (with its ActiveRecord and Sequel stores), SiteMaps, Multitenancy for Rails.
+- **Elixir** (`/elixir/`, projects at `/elixir/<slug>/`): Multitenancy for Phoenix, SiteMaps.
+
+Every library is listed in `src/data/projects.ts`; `family` groups extensions under
+the library they extend.
 
 ## Local development
 
@@ -21,21 +22,26 @@ npm run build         # static site in ./dist
 npm run preview       # serve ./dist
 ```
 
-Node 20+ is required (`.node-version` pins the CI version).
+Node 22.12+ is required (`.node-version` pins the CI version).
 
 ## How the docs are sourced
 
-Each project's Markdown docs live in its own gem under `docs/`. They are imported
-into `src/content/docs/<slug>/` by `scripts/import-docs.mjs`, which:
+Docs are imported into `src/content/docs/<id>/` by `scripts/import-docs.mjs`:
 
-1. Reads every `.md` file from `~/workspace/gems/<gem>/docs/`.
-2. Injects Astro frontmatter (`title`, `slug`, `order`, `project`).
-3. Maps `README.md` → `index.md` (the project landing page).
+- Gems with a `docs/` folder: every `.md` file from `~/workspace/gems/<gem>/docs/`,
+  with frontmatter (`title`, `slug`, `order`, `project`) and `README.md` as the
+  landing page.
+- Libraries documented by their README alone (the Lepus Saga gems and the Elixir
+  packages in `~/workspace/mix_ex/`): the README becomes the landing page, its
+  brand header is dropped and relative links point at the repository. Elixir pages
+  also drop the passages that compare them with the Ruby libraries; the script
+  warns if any Ruby mention is left.
 
-Re-run after updating upstream gem docs:
+Re-run after updating upstream docs, for everything or for some projects:
 
 ```bash
 npm run import:docs
+npm run import:docs -- lepus elixir-site_maps
 ```
 
 The import is deterministic — it wipes each project's destination directory
@@ -82,24 +88,28 @@ themes are switched via `[data-theme='...']` selectors.
 
 ```
 src/
-  components/        # Header, Footer, ProjectCard, ConstellationHero, DocNav, TOC…
+  components/        # Header, Footer, Band, Family, Install, DocNav, TOC…
   content/
     docs/            # imported markdown, one folder per project
-    config.ts        # content collection schema
   data/
-    projects.ts      # project metadata + constellation coordinates
+    projects.ts      # languages and project metadata
+    docs.ts          # static paths for a language's docs
   layouts/
     BaseLayout.astro
     DocsLayout.astro
   pages/
-    index.astro             # landing
-    [project]/[...slug].astro
+    index.astro             # landing: one column per language
+    ruby/index.astro        # language pages
+    elixir/index.astro
+    [project]/[...slug].astro          # Ruby docs
+    elixir/[project]/[...slug].astro   # Elixir docs
   styles/
     global.css              # design system
+  content.config.ts         # content collection schema
 scripts/
   import-docs.mjs
 public/
-  logos/                    # esse.png, lepus.svg, site_maps.svg, multitenancy-rails.svg
+  logos/                    # esse.png (the Lepus mark is inline in Logo.astro)
   favicon.svg
 ```
 

@@ -1,0 +1,19 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props as Props;
+---
+
+{project.logo === 'mark:lepus' ? (
+  <svg class="family__logo" viewBox="1 0 64 64" aria-hidden="true">
+    <path d="M14 5 V42 A14 14 0 0 0 28 56 H42 A10 10 0 0 0 42 36 H28 V15" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="40.5" cy="46" r="4" fill="#f2a30f" />
+  </svg>
+) : project.logo ? (
+  <img class="family__logo" src={project.logo} alt="" width="52" height="52" />
+) : (
+  <span class="family__logo family__logo--letter" aria-hidden="true">{project.displayName.charAt(0)}</span>
+)}

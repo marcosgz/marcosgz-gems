@@ -1,49 +1,54 @@
 ---
 import { getCollection } from 'astro:content';
-import { getProject } from '../data/projects';
+import Logo from './Logo.astro';
+import { getProject, projectHref, projects, type Project } from '../data/projects';
 
 interface Props {
-  project: string;
+  project: Project;
   currentSlug: string;
 }
 const { project, currentSlug } = Astro.props as Props;
 
-const all = await getCollection('docs');
-const pages = all
-  .filter((e) => e.data.project === project)
-  .sort((a, b) => {
-    if (a.data.order !== b.data.order) return a.data.order - b.data.order;
-    return a.data.title.localeCompare(b.data.title);
-  });
+const pages = (await getCollection('docs'))
+  .filter((e) => e.data.project === project.id)
+  .sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
 
-const meta = getProject(project);
+const lead = project.family ? getProject(project.family)! : project;
+const family = [lead, ...projects.filter((p) => p.family === lead.id)];
 ---
 
-<aside class="doc-nav" aria-label="Documentation sections">
-  <div class="doc-nav__head">
-    <div class="doc-nav__eyebrow">Project</div>
-    <div class="doc-nav__title">{meta?.displayName ?? project}</div>
-    {meta?.repo && (
-      <a class="doc-nav__repo" href={meta.repo} target="_blank" rel="noopener noreferrer">
-        github.com/marcosgz/{meta.name}
-      </a>
-    )}
-  </div>
+<aside class="doc-nav" aria-label="Documentation">
+  <a class="doc-nav__project" href={projectHref(project)}>
+    <Logo project={lead} />
+    <strong>{project.displayName}</strong>
+  </a>
 
-  <nav class="doc-nav__list" aria-label="Pages">
-    <ol>
-      {pages.map((page, idx) => {
-        const href = page.data.slug === 'index' ? `/${project}/` : `/${project}/${page.data.slug}/`;
-        const current = page.data.slug === currentSlug;
-        return (
-          <li class:list={['doc-nav__item', current && 'doc-nav__item--current']}>
-            <a href={href}>
-              <span class="doc-nav__num">{String(idx + 1).padStart(2, '0')}</span>
-              <span class="doc-nav__label">{page.data.title}</span>
+  {pages.length > 1 && (
+    <nav aria-label={`${project.displayName} pages`}>
+      <ol class="doc-nav__pages">
+        {pages.map((page) => (
+          <li>
+            <a href={projectHref(project, page.data.slug)} aria-current={page.data.slug === currentSlug ? 'page' : undefined}>
+              {page.data.slug === 'index' ? 'Overview' : page.data.title}
             </a>
           </li>
-        );
-      })}
-    </ol>
-  </nav>
+        ))}
+      </ol>
+    </nav>
+  )}
+
+  {family.length > 1 && (
+    <nav class="doc-nav__family" aria-labelledby="family-title">
+      <h2 id="family-title">{lead.displayName} family</h2>
+      <ul>
+        {family.map((member) => (
+          <li>
+            <a href={projectHref(member)} aria-current={member.id === project.id ? 'true' : undefined}>
+              {member.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )}
 </aside>

@@ -2,11 +2,14 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import type { Lang } from '../data/projects';
 
 interface Props {
   title?: string;
   description?: string;
-  current?: string;
+  /** Tints the page with the language's colour and marks it current in the header. */
+  lang?: Lang;
+  langIndex?: boolean;
   ogType?: 'website' | 'article';
   /** When set, renders an article:modified_time meta tag. */
   lastModified?: Date | string;
@@ -19,8 +22,9 @@ interface Props {
 }
 const {
   title = 'marcosgz · projects',
-  description = 'Documentation for the open-source Ruby gems by Marcos G. Zimmermann — Esse, Lepus, SiteMaps and the full Esse ecosystem (ActiveRecord, Rails, Sequel, Sidekiq, Jbuilder, Kaminari, Pagy).',
-  current,
+  description = 'Open-source Ruby and Elixir libraries by Marcos G. Zimmermann: search indexing, RabbitMQ messaging and sagas, sitemaps and multi-tenant Rails and Phoenix apps.',
+  lang,
+  langIndex = false,
   ogType = 'website',
   lastModified,
   section,
@@ -28,20 +32,12 @@ const {
   noindex = false,
 } = Astro.props as Props;
 
-const defaultKeywords = [
-  'Ruby',
-  'Ruby on Rails',
-  'Elasticsearch',
-  'OpenSearch',
-  'RabbitMQ',
-  'sitemap',
-  'gem',
-  'open source',
-  'Esse',
-  'Lepus',
-  'SiteMaps',
-  'marcosgz',
-];
+const keywordsByLang: Record<Lang | 'all', string[]> = {
+  ruby: ['Ruby', 'Ruby on Rails', 'gem', 'Elasticsearch', 'OpenSearch', 'RabbitMQ', 'saga'],
+  elixir: ['Elixir', 'Phoenix', 'Hex', 'multitenancy', 'sitemap'],
+  all: ['Ruby', 'Elixir', 'Phoenix', 'Ruby on Rails', 'RabbitMQ', 'Elasticsearch', 'sitemap'],
+};
+const defaultKeywords = [...keywordsByLang[lang ?? 'all'], 'open source', 'marcosgz'];
 const allKeywords = [...defaultKeywords, ...(keywords ?? [])];
 
 const siteUrl = Astro.site ?? new URL('https://gems.marcosz.com.br');
@@ -69,7 +65,7 @@ const siteJsonLd = {
 ---
 
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -80,8 +76,8 @@ const siteJsonLd = {
     <meta name="author" content="Marcos G. Zimmermann" />
     <meta name="keywords" content={allKeywords.join(', ')} />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f1ea" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0e1a" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#eef0f2" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111318" />
 
     {noindex ? (
       <meta name="robots" content="noindex, nofollow" />
@@ -96,7 +92,12 @@ const siteJsonLd = {
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
-    <!-- Preconnect nothing — static self-hosted fonts keep the waterfall short. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&family=Spline+Sans+Mono:wght@400..600&display=swap"
+    />
 
     <meta property="og:site_name" content="marcosgz · projects" />
     <meta property="og:title" content={fullTitle} />
@@ -105,7 +106,7 @@ const siteJsonLd = {
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="en_US" />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content="marcosgz · projects — constellation logo" />
+    <meta property="og:image:alt" content="marcosgz · projects" />
 
     {ogType === 'article' && section && (
       <meta property="article:section" content={section} />
@@ -161,7 +162,7 @@ const siteJsonLd = {
 
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <Header current={current} />
+    <Header lang={lang} langIndex={langIndex} />
     <main id="main" class="site-main">
       <slot />
     </main>

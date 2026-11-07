@@ -1,0 +1,49 @@
+---
+import Install from './Install.astro';
+import Logo from './Logo.astro';
+import Wordmark from './Wordmark.astro';
+import { languages, projectHref, type Project } from '../data/projects';
+
+interface Props {
+  lead: Project;
+  members: Project[];
+}
+const { lead, members } = Astro.props as Props;
+const registry = languages[lead.lang].registry;
+const unit = lead.lang === 'ruby' ? 'gem' : 'package';
+---
+
+<section class="family" id={lead.slug} aria-labelledby={`${lead.id}-name`}>
+  <div class="family__side">
+    {!lead.wordmark && <Logo project={lead} />}
+    <div>
+      <h2 class="family__name" id={`${lead.id}-name`}>
+        <a href={projectHref(lead)}>{lead.wordmark ? <Wordmark project={lead} /> : lead.displayName}</a>
+      </h2>
+      {members.length > 0 && <p class="family__count">{members.length + 1} {unit}s</p>}
+    </div>
+  </div>
+
+  <div>
+    <p class="lib__tagline">{lead.tagline}</p>
+    <Install project={lead} />
+    <p class="lib__links">
+      <a class="lib__docs" href={projectHref(lead)}>Read the docs</a>
+      <a href={lead.repo}>Source</a>
+      <a href={lead.registryUrl}>{registry}</a>
+    </p>
+
+    {members.length > 0 && (
+      <ul class="members">
+        {members.map((member) => (
+          <li>
+            <a href={projectHref(member)}>
+              <strong>{member.name}</strong>
+              <span>{member.tagline}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>

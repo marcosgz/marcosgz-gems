@@ -1,0 +1,33 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props as Props;
+const file = project.lang === 'ruby' ? 'Gemfile' : 'mix.exs';
+---
+
+<div class="install">
+  <span class="install__file">{file}</span>
+  <code>{project.install}</code>
+  <button type="button" data-copy={project.install} aria-label={`Copy the ${file} line for ${project.name}`}>Copy</button>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy!);
+      } catch {
+        return;
+      }
+      button.textContent = 'Copied';
+      button.setAttribute('data-copied', '');
+      setTimeout(() => {
+        button.textContent = 'Copy';
+        button.removeAttribute('data-copied');
+      }, 1600);
+    });
+  });
+</script>

@@ -1,210 +1,229 @@
-export type ProjectGroup = 'core' | 'esse-ecosystem';
+export type Lang = 'ruby' | 'elixir';
+
+export interface Language {
+  key: Lang;
+  name: string;
+  registry: string;
+  blurb: string;
+}
+
+export const languages: Record<Lang, Language> = {
+  ruby: {
+    key: 'ruby',
+    name: 'Ruby',
+    registry: 'RubyGems',
+    blurb:
+      'Search indexing, RabbitMQ messaging and sagas, sitemaps and multi-tenant Rails. Plain Ruby first, with Rails support where it helps.',
+  },
+  elixir: {
+    key: 'elixir',
+    name: 'Elixir',
+    registry: 'Hex',
+    blurb:
+      'Multi-site Phoenix apps and sitemaps that stream, run in parallel and serve many tenants from one module.',
+  },
+};
 
 export interface Project {
+  /** Unique key; also the content folder under src/content/docs. */
+  id: string;
+  /** URL segment under the language's base path. */
   slug: string;
+  lang: Lang;
   name: string;
   displayName: string;
   tagline: string;
-  group: ProjectGroup;
-  stars: [number, number]; // [cx, cy] on a 1000x600 grid, for the constellation
-  magnitude: number; // 1 = brightest, 4 = dim (controls star size)
-  logo?: { type: 'image'; src: string } | { type: 'svg'; href: string };
+  /** id of the library this one extends; families render together. */
+  family?: string;
+  /** An image path, or `mark:<name>` for a mark drawn inline in the text colour. */
+  logo?: string;
+  /** The project's full logo, shown in place of its name; `dark` is used on the dark theme. */
+  wordmark?: { light: string; dark?: string; width: number; height: number };
   repo: string;
-  language: string;
-  badge?: string;
+  /** Where the imported pages live upstream. */
+  source: string;
+  /** The line a reader pastes to install it. */
+  install: string;
+  registryUrl: string;
 }
+
+const gem = (name: string) => `https://rubygems.org/gems/${name}`;
+const hex = (name: string) => `https://hex.pm/packages/${name}`;
+const gh = (name: string) => `https://github.com/marcosgz/${name}`;
 
 export const projects: Project[] = [
   {
+    id: 'esse',
     slug: 'esse',
+    lang: 'ruby',
     name: 'esse',
     displayName: 'Esse',
     tagline:
-      'An Elasticsearch/OpenSearch toolkit for Ruby applications — ETL-style indices, repositories, and documents.',
-    group: 'core',
-    stars: [180, 220],
-    magnitude: 1,
-    logo: { type: 'image', src: '/logos/esse.png' },
-    repo: 'https://github.com/marcosgz/esse',
-    language: 'Ruby',
-    badge: 'core',
+      'Elasticsearch and OpenSearch for Ruby apps: indices, repositories and documents defined in plain Ruby, imported in bulk.',
+    logo: '/logos/esse.png',
+    wordmark: { light: '/logos/esse.png', width: 785, height: 298 },
+    repo: gh('esse'),
+    source: `${gh('esse')}/tree/main/docs`,
+    install: 'gem "esse"',
+    registryUrl: gem('esse'),
   },
   {
+    id: 'lepus',
     slug: 'lepus',
+    lang: 'ruby',
     name: 'lepus',
     displayName: 'Lepus',
     tagline:
-      'RabbitMQ-backed producer/consumer framework for Ruby — supervisor, middleware, CLI, and a live web dashboard.',
-    group: 'core',
-    stars: [520, 140],
-    magnitude: 1,
-    logo: { type: 'svg', href: '/logos/lepus.svg' },
-    repo: 'https://github.com/marcosgz/lepus',
-    language: 'Ruby',
-    badge: 'core',
+      'RabbitMQ consumers and producers with retries, delayed messages, a supervisor, a CLI and a live topology dashboard.',
+    logo: 'mark:lepus',
+    wordmark: { light: '/logos/lepus-light.svg', dark: '/logos/lepus-dark.svg', width: 278, height: 90 },
+    repo: gh('lepus'),
+    source: `${gh('lepus')}/tree/main/docs`,
+    install: 'gem "lepus"',
+    registryUrl: gem('lepus'),
   },
   {
+    id: 'site_maps',
     slug: 'site_maps',
+    lang: 'ruby',
     name: 'site_maps',
     displayName: 'SiteMaps',
     tagline:
-      'Concurrent, adapter-based sitemap.xml generation with full SEO extensions — image, video, news, hreflang.',
-    group: 'core',
-    stars: [820, 300],
-    magnitude: 1,
-    logo: { type: 'svg', href: '/logos/site_maps.svg' },
-    repo: 'https://github.com/marcosgz/site_maps',
-    language: 'Ruby',
-    badge: 'core',
+      'Concurrent, incremental sitemap generation with image, video, news and hreflang extensions.',
+    repo: gh('site_maps'),
+    source: `${gh('site_maps')}/tree/main/docs`,
+    install: 'gem "site_maps"',
+    registryUrl: gem('site_maps'),
   },
   {
+    id: 'multitenancy-rails',
     slug: 'multitenancy-rails',
+    lang: 'ruby',
     name: 'multitenancy-rails',
-    displayName: 'Multitenancy · Rails',
+    displayName: 'Multitenancy for Rails',
     tagline:
-      'White-label, multi-tenant Rails applications — per-tenant themes, view namespaces, and isolated asset pipelines.',
-    group: 'core',
-    stars: [380, 80],
-    magnitude: 1,
-    logo: { type: 'svg', href: '/logos/multitenancy-rails.svg' },
-    repo: 'https://github.com/marcosgz/multitenancy-rails',
-    language: 'Ruby',
-    badge: 'core',
+      'White-label Rails apps: each host resolves to a site, each site to a theme with its own views, routes and assets.',
+    repo: gh('multitenancy-rails'),
+    source: `${gh('multitenancy-rails')}/tree/main/docs`,
+    install: 'gem "multitenancy-rails"',
+    registryUrl: gem('multitenancy-rails'),
   },
   {
-    slug: 'esse-active_record',
-    name: 'esse-active_record',
-    displayName: 'Esse · ActiveRecord',
-    tagline: 'ActiveRecord integration for Esse — auto-index on record lifecycle.',
-    group: 'esse-ecosystem',
-    stars: [260, 430],
-    magnitude: 2,
-    repo: 'https://github.com/marcosgz/esse-active_record',
-    language: 'Ruby',
+    id: 'lepus-saga',
+    slug: 'lepus-saga',
+    lang: 'ruby',
+    name: 'lepus-saga',
+    displayName: 'Lepus Saga',
+    tagline:
+      'Multi-step workflows on Lepus: ordered steps with retries and compensations, safe against duplicate and lost messages, with a live web console.',
+    family: 'lepus',
+    wordmark: { light: '/logos/lepus-saga-light.svg', dark: '/logos/lepus-saga-dark.svg', width: 359, height: 81 },
+    repo: gh('lepus-saga'),
+    source: gh('lepus-saga'),
+    install: 'gem "lepus-saga"',
+    registryUrl: gem('lepus-saga'),
   },
   {
-    slug: 'esse-rails',
-    name: 'esse-rails',
-    displayName: 'Esse · Rails',
-    tagline: 'Rails integration, generators, and Railtie for Esse.',
-    group: 'esse-ecosystem',
-    stars: [400, 490],
-    magnitude: 2,
-    repo: 'https://github.com/marcosgz/esse-rails',
-    language: 'Ruby',
+    id: 'lepus-saga-active_record',
+    slug: 'lepus-saga-active_record',
+    lang: 'ruby',
+    name: 'lepus-saga-active_record',
+    displayName: 'Lepus Saga · ActiveRecord',
+    tagline: 'ActiveRecord store for Lepus Saga, with a Rails generator. PostgreSQL, MySQL/MariaDB and SQLite.',
+    family: 'lepus',
+    repo: gh('lepus-saga-active_record'),
+    source: gh('lepus-saga-active_record'),
+    install: 'gem "lepus-saga-active_record"',
+    registryUrl: gem('lepus-saga-active_record'),
   },
   {
-    slug: 'esse-sequel',
-    name: 'esse-sequel',
-    displayName: 'Esse · Sequel',
-    tagline: 'Sequel integration — auto-index records from Sequel models.',
-    group: 'esse-ecosystem',
-    stars: [540, 440],
-    magnitude: 2,
-    repo: 'https://github.com/marcosgz/esse-sequel',
-    language: 'Ruby',
+    id: 'lepus-saga-sequel',
+    slug: 'lepus-saga-sequel',
+    lang: 'ruby',
+    name: 'lepus-saga-sequel',
+    displayName: 'Lepus Saga · Sequel',
+    tagline: 'Sequel store for Lepus Saga with bundled migrations; shares its schema with the ActiveRecord store.',
+    family: 'lepus',
+    repo: gh('lepus-saga-sequel'),
+    source: gh('lepus-saga-sequel'),
+    install: 'gem "lepus-saga-sequel"',
+    registryUrl: gem('lepus-saga-sequel'),
+  },
+  ...(
+    [
+      ['esse-active_record', 'ActiveRecord', 'Index ActiveRecord models and keep them in sync on commit.'],
+      ['esse-rails', 'Rails', 'Rails generators, Railtie and instrumentation for Esse.'],
+      ['esse-sequel', 'Sequel', 'Index Sequel models and keep them in sync.'],
+      ['esse-async_indexing', 'Async Indexing', 'Index in the background with Sidekiq or Faktory.'],
+      ['esse-hooks', 'Hooks', 'Turn model callbacks on and off around index operations.'],
+      ['esse-jbuilder', 'Jbuilder', 'Write search queries as Jbuilder templates.'],
+      ['esse-kaminari', 'Kaminari', 'Kaminari pagination for search results.'],
+      ['esse-pagy', 'Pagy', 'Pagy pagination for search results.'],
+      ['esse-will_paginate', 'WillPaginate', 'WillPaginate pagination for search results.'],
+      ['esse-rspec', 'RSpec', 'Matchers and stubs to test Esse code without a running cluster.'],
+    ] as const
+  ).map(([name, label, tagline]): Project => ({
+    id: name,
+    slug: name,
+    lang: 'ruby',
+    name,
+    displayName: `Esse · ${label}`,
+    tagline,
+    family: 'esse',
+    repo: gh(name),
+    source: `${gh(name)}/tree/main/docs`,
+    install: `gem "${name}"`,
+    registryUrl: gem(name),
+  })),
+  {
+    id: 'elixir-multitenancy_phoenix',
+    slug: 'multitenancy_phoenix',
+    lang: 'elixir',
+    name: 'multitenancy_phoenix',
+    displayName: 'Multitenancy for Phoenix',
+    tagline:
+      'Serve many sites from one Phoenix app: each host resolves to a site, each site to a theme with its own router, templates, LiveViews and assets.',
+    repo: gh('multitenancy_phoenix'),
+    source: gh('multitenancy_phoenix'),
+    install: '{:multitenancy_phoenix, "~> 0.2"}',
+    registryUrl: hex('multitenancy_phoenix'),
   },
   {
-    slug: 'esse-async_indexing',
-    name: 'esse-async_indexing',
-    displayName: 'Esse · Async Indexing',
-    tagline: 'Background-job indexing via Sidekiq or Faktory.',
-    group: 'esse-ecosystem',
-    stars: [680, 510],
-    magnitude: 2,
-    repo: 'https://github.com/marcosgz/esse-async_indexing',
-    language: 'Ruby',
-  },
-  {
-    slug: 'esse-hooks',
-    name: 'esse-hooks',
-    displayName: 'Esse · Hooks',
-    tagline: 'Lifecycle callbacks around index operations.',
-    group: 'esse-ecosystem',
-    stars: [820, 490],
-    magnitude: 3,
-    repo: 'https://github.com/marcosgz/esse-hooks',
-    language: 'Ruby',
-  },
-  {
-    slug: 'esse-jbuilder',
-    name: 'esse-jbuilder',
-    displayName: 'Esse · Jbuilder',
-    tagline: 'Define documents with Jbuilder templates.',
-    group: 'esse-ecosystem',
-    stars: [140, 380],
-    magnitude: 3,
-    repo: 'https://github.com/marcosgz/esse-jbuilder',
-    language: 'Ruby',
-  },
-  {
-    slug: 'esse-kaminari',
-    name: 'esse-kaminari',
-    displayName: 'Esse · Kaminari',
-    tagline: 'Kaminari pagination for Esse search queries.',
-    group: 'esse-ecosystem',
-    stars: [900, 380],
-    magnitude: 3,
-    repo: 'https://github.com/marcosgz/esse-kaminari',
-    language: 'Ruby',
-  },
-  {
-    slug: 'esse-pagy',
-    name: 'esse-pagy',
-    displayName: 'Esse · Pagy',
-    tagline: 'Pagy pagination backend for Esse.',
-    group: 'esse-ecosystem',
-    stars: [80, 510],
-    magnitude: 3,
-    repo: 'https://github.com/marcosgz/esse-pagy',
-    language: 'Ruby',
-  },
-  {
-    slug: 'esse-rspec',
-    name: 'esse-rspec',
-    displayName: 'Esse · RSpec',
-    tagline: 'RSpec matchers and index stubs for testing Esse-backed code without a live cluster.',
-    group: 'esse-ecosystem',
-    stars: [700, 380],
-    magnitude: 3,
-    repo: 'https://github.com/marcosgz/esse-rspec',
-    language: 'Ruby',
-  },
-  {
-    slug: 'esse-will_paginate',
-    name: 'esse-will_paginate',
-    displayName: 'Esse · WillPaginate',
-    tagline: 'WillPaginate pagination for Esse search queries.',
-    group: 'esse-ecosystem',
-    stars: [500, 380],
-    magnitude: 3,
-    repo: 'https://github.com/marcosgz/esse-will_paginate',
-    language: 'Ruby',
+    id: 'elixir-site_maps',
+    slug: 'site_maps',
+    lang: 'elixir',
+    name: 'site_maps',
+    displayName: 'SiteMaps',
+    tagline:
+      'Sitemaps streamed to disk, S3 or R2: parallel processes, incremental shards, every protocol extension, and one module for many sites.',
+    repo: gh('site_maps_ex'),
+    source: gh('site_maps_ex'),
+    install: '{:site_maps, "~> 0.1"}',
+    registryUrl: hex('site_maps'),
   },
 ];
 
-export const coreProjects = projects.filter((p) => p.group === 'core');
-export const ecosystemProjects = projects.filter((p) => p.group === 'esse-ecosystem');
-
-export function getProject(slug: string): Project | undefined {
-  return projects.find((p) => p.slug === slug);
+export function getProject(id: string): Project | undefined {
+  return projects.find((p) => p.id === id);
 }
 
-// Edges of the constellation — connect related projects.
-export const constellationEdges: [string, string][] = [
-  ['esse', 'esse-active_record'],
-  ['esse', 'esse-rails'],
-  ['esse', 'esse-sequel'],
-  ['esse', 'esse-jbuilder'],
-  ['esse', 'esse-pagy'],
-  ['esse', 'esse-async_indexing'],
-  ['esse-active_record', 'esse-rails'],
-  ['esse-rails', 'esse-async_indexing'],
-  ['esse-async_indexing', 'esse-hooks'],
-  ['esse-sequel', 'esse-hooks'],
-  ['esse-hooks', 'esse-kaminari'],
-  ['esse', 'esse-rspec'],
-  ['esse', 'esse-will_paginate'],
-  ['esse', 'lepus'],
-  ['lepus', 'site_maps'],
-];
+export function projectsFor(lang: Lang): Project[] {
+  return projects.filter((p) => p.lang === lang);
+}
+
+/** Top-level libraries of a language, each with the ones that extend it. */
+export function familiesFor(lang: Lang): { lead: Project; members: Project[] }[] {
+  const all = projectsFor(lang);
+  return all
+    .filter((p) => !p.family)
+    .map((lead) => ({ lead, members: all.filter((p) => p.family === lead.id) }));
+}
+
+export function langBase(lang: Lang): string {
+  return lang === 'ruby' ? '' : `/${lang}`;
+}
+
+export function projectHref(project: Project, page = 'index'): string {
+  const base = `${langBase(project.lang)}/${project.slug}/`;
+  return page === 'index' ? base : `${base}${page}/`;
+}

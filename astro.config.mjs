@@ -10,10 +10,10 @@ export default defineConfig({
       themes: ['github-light', 'one-dark-pro'],
       themeCssSelector: (theme) => `[data-theme='${theme.name === 'github-light' ? 'light' : 'dark'}']`,
       styleOverrides: {
-        borderRadius: '0',
+        borderRadius: '10px',
         borderWidth: '1px',
-        codeFontFamily: 'var(--font-mono)',
-        codeFontSize: '0.85rem',
+        codeFontFamily: "'Spline Sans Mono', ui-monospace, monospace",
+        codeFontSize: '0.86rem',
         codeLineHeight: '1.6',
         frames: {
           shadowColor: 'transparent',
