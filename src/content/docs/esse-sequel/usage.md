@@ -41,14 +41,16 @@ Options:
 | Option | Default | Description |
 |--------|---------|-------------|
 | `batch_size` | `1000` | Records per batch |
-| `connect_with` | — | `{ role: :reading }` / `{ shard: :primary }` |
+| `connect_with` | — | `{ server: :read_only }` (a server from the Sequel `:servers` option) |
 
 ```ruby
 repository :user do
-  collection ::User, batch_size: 500, connect_with: { role: :replica }
+  collection ::User, batch_size: 500, connect_with: { server: :read_only }
   document { |u, **| { _id: u.id, name: u.name } }
 end
 ```
+
+The same can be declared inside the collection block with `connected_to server: :read_only`. The collection dataset runs on that server, and when the `server_block` extension is loaded (`DB.extension :server_block`) the whole iteration, `batch_context` queries included, runs inside `DB.with_server`.
 
 ## Scopes
 
@@ -123,6 +125,21 @@ Same as esse-active_record:
 - `'UsersIndex::User'`
 - `'foo/v1/users_index:user'` (namespaced)
 
+### Routing changes
+
+When the document has a routing key, the update callback deletes the document from its previous routing when the routing value changes. The previous values come from the Sequel `dirty` plugin, so load it in those models:
+
+```ruby
+class City < Sequel::Model
+  plugin :dirty
+  include Esse::Sequel::Model
+
+  index_callback 'geos_index:city'
+end
+```
+
+Without the plugin the document is still indexed, but the stale copy under the old routing is not removed.
+
 ### Index an associated record
 
 ```ruby
@@ -178,24 +195,6 @@ Esse::Sequel::Hooks.disable!
 Esse::Sequel::Hooks.enable!
 ```
 
-## Async indexing
-
-Install [esse-async_indexing](/esse-async_indexing/) and use the Sequel integration:
-
-```ruby
-require 'esse/async_indexing/sequel'
-
-class User < Sequel::Model
-  include Esse::AsyncIndexing::Sequel::Model
-
-  async_index_callback('users_index:user', service_name: :sidekiq) { id }
-  async_update_lazy_attribute_callback(
-    'profiles_index:profile', 'user_name',
-    service_name: :sidekiq
-  ) { id }
-end
-```
-
 ## Streaming by primary key range
 
 ```ruby
@@ -208,5 +207,9 @@ UsersIndex.import(context: { start: 5001,  finish: 10000, batch_size: 500 })
 Behaviorally the plugins are identical. The differences:
 
 - Uses Sequel datasets (`where`, `eager`, `select`) in lieu of ActiveRecord scopes.
-- Callbacks fire on `after_commit` (Sequel's transactional hook), same as ActiveRecord.
+- Collections accept a model class or a model dataset (`User.where(...)`), not `User.all` (which returns an Array in Sequel).
+- Callbacks run in the `after_create`/`after_update`/`after_destroy` model hooks and are deferred with `DB.after_commit`. Models overriding these hooks must call `super`.
+- `connect_with`/`connected_to` take a Sequel `server:` instead of ActiveRecord `role:`/`shard:`.
+- Routing changes on update require the `dirty` plugin (ActiveRecord tracks previous changes natively).
+- Async callbacks from esse-async_indexing are not available for Sequel models yet.
 - Hook store key differs (`:esse_sequel_hooks` vs `:esse_active_record_hooks`), so you can use both side-by-side in a single process.

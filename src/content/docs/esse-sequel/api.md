@@ -22,7 +22,7 @@ Accepts a `Sequel::Model` class or a `Sequel::Dataset`. Produces an `Esse::Seque
 |----------|-------------|
 | `model` | Sequel model class or dataset |
 | `batch_size:` | Records per batch (default `1000`) |
-| `connect_with:` | Hash of `{role:, shard:}` for connection switching |
+| `connect_with:` | `{server: :name}` to run the queries on a Sequel server (shard) |
 | `&block` | Evaluated in the collection class scope (`scope`, `batch_context`, `connected_to`) |
 
 #### `dataset(**params)`
@@ -33,13 +33,13 @@ Returns the filtered `Sequel::Dataset` after applying scopes.
 
 ## `Esse::Sequel::Collection`
 
-Base class. Same interface as `Esse::ActiveRecord::Collection`.
+Base class. Same interface as `Esse::ActiveRecord::Collection`. Batches are fetched with keyset pagination over the model primary key.
 
 ### Class-level DSL
 
 - `scope(name, proc = nil, override: false, &block)` — define a named scope.
 - `batch_context(name, proc = nil, override: false, &block)` — define a batch enrichment fetcher.
-- `connected_to(**kwargs)` — set DB role/shard.
+- `connected_to(server:)` — run the queries on the given Sequel server. Uses `DB.with_server` for the whole iteration when the `server_block` extension is loaded.
 
 ### Instance methods
 
@@ -64,7 +64,7 @@ Mixin for Sequel models. `include` it to enable callbacks.
 
 ### `index_callback(reference, on: [...], with: nil, **opts, &block)`
 
-Registers an `after_commit` callback.
+Registers a callback that runs after the transaction commits (`DB.after_commit` from the model `after_create`/`after_update`/`after_destroy` hooks).
 
 | Option | Description |
 |--------|-------------|
@@ -109,7 +109,7 @@ Registered in `Esse::Sequel::Callbacks`. All inherit from `Esse::Sequel::Callbac
 | Callback | Behavior |
 |----------|----------|
 | `IndexingOnCreate` | `repo.index(document)` on create |
-| `IndexingOnUpdate` | `repo.update(document)` or `repo.index(document)` (depending on `with:`). Handles routing changes by deleting the previous document at the old routing. |
+| `IndexingOnUpdate` | `repo.update(document)` or `repo.index(document)` (depending on `with:`). Handles routing changes by deleting the previous document at the old routing (requires the `dirty` plugin). |
 | `IndexingOnDestroy` | `repo.delete(document)` on destroy. Silently handles `NotFoundError`. |
 | `UpdateLazyAttribute` | `repo.update_documents_attribute(attribute, ids, opts)` |
 
